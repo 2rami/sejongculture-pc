@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './Main.css';
 import logoSvg from '../로고.svg';
 import textLogoSvg from '../글씨로고.svg';
+import SearchModal from './SearchModal';
 import imageSrc7 from '../imageSrc (7).jpeg';
 import imageSrc8 from '../imageSrc (8).jpeg';
 import imageSrc14 from '../imageSrc (14).jpeg';
@@ -13,6 +14,7 @@ import imageSrc28 from '../imageSrc (28).jpeg';
 import imageSrc4 from '../imageSrc (4).jpeg';
 import imageSrc6 from '../imageSrc (6).jpeg';
 import imageSrc9 from '../imageSrc (9).jpeg';
+import imageSrc15 from '../imageSrc15.jpeg';
 
 export default function Main() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,6 +24,30 @@ export default function Main() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [hoveredRankingItem, setHoveredRankingItem] = useState<number | null>(null);
   const [hoveredNewsItem, setHoveredNewsItem] = useState<number | null>(null);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const [hoveredSubMenu, setHoveredSubMenu] = useState<string | null>(null);
+
+  // 텍스트 길이에 따른 언더라인 길이 계산
+  const getTextWidth = (text: string) => {
+    const textWidths: { [key: string]: number } = {
+      '프로그램': 70,
+      '캘린더': 60,
+      '랭킹': 40,
+      '이벤트&소식': 85,
+      '기관소개': 70
+    };
+    return textWidths[text] || 70;
+  };
+
+  // 메뉴 데이터
+  const menuData = {
+    '프로그램': ['공연/전시', '공연 정보', '예매'],
+    '캘린더': ['전시/공연 일정'],
+    '랭킹': ['장르별'],
+    '이벤트&소식': ['공지사항'],
+    '기관소개': ['기관개요']
+  };
 
   // 슬라이더 데이터
   const slides = [
@@ -44,7 +70,7 @@ export default function Main() {
       date: "6/1~6/15"
     },
     {
-      image: null, // 회색 박스
+      image: imageSrc15,
       venue: "세종아트센터",
       title: "가을 음악회",
       date: "9/10~9/20"
@@ -124,7 +150,13 @@ export default function Main() {
       subtitle: "환상적인 공연",
       period: "2025년 5월 15일 ~ 6월 1일",
       venue: "세종대극장",
-      image: imageSrc4
+      image: imageSrc4,
+      stats: {
+        tickets: "3,247",
+        rate: "98%",
+        rating: "4.9",
+        reviews: "234"
+      }
     },
     {
       id: 2,
@@ -133,7 +165,13 @@ export default function Main() {
       subtitle: "감동의 무대",
       period: "2025년 5월 20일 ~ 6월 5일",
       venue: "세종M홀",
-      image: imageSrc6
+      image: imageSrc6,
+      stats: {
+        tickets: "2,847",
+        rate: "94%",
+        rating: "4.8",
+        reviews: "156"
+      }
     },
     {
       id: 3,
@@ -142,7 +180,13 @@ export default function Main() {
       subtitle: "젊음의 열정",
       period: "2025년 6월 1일 ~ 6월 15일",
       venue: "소극장",
-      image: imageSrc7
+      image: imageSrc7,
+      stats: {
+        tickets: "1,923",
+        rate: "89%",
+        rating: "4.6",
+        reviews: "127"
+      }
     },
     {
       id: 4,
@@ -151,9 +195,24 @@ export default function Main() {
       subtitle: "가을의 선율",
       period: "2025년 6월 10일 ~ 6월 25일",
       venue: "야외무대",
-      image: imageSrc9
+      image: imageSrc9,
+      stats: {
+        tickets: "1,456",
+        rate: "85%",
+        rating: "4.4",
+        reviews: "89"
+      }
     }
   ];
+
+  // 현재 표시할 통계 데이터 계산
+  const getCurrentStats = () => {
+    if (hoveredRankingItem !== null && rankingData[hoveredRankingItem]) {
+      return rankingData[hoveredRankingItem].stats;
+    }
+    // 호버하지 않을 때는 null 반환
+    return null;
+  };
 
   // 현재 이벤트 가져오기
   const getCurrentEvent = () => {
@@ -218,15 +277,33 @@ export default function Main() {
           <div className="logo">
             <img src={logoSvg} alt="세종문화회관 로고" className="logo-image" />
           </div>
-          <nav className="nav-menu">
-            <span>프로그램</span>
-            <span>캘린더</span>
-            <span>랭킹</span>
-            <span>이벤트&소식</span>
-            <span>기관소개</span>
-          </nav>
+          <div 
+            className="nav-menu-wrapper"
+          >
+            <motion.nav 
+              className="nav-menu"
+              animate={{
+                opacity: hoveredMenu ? 0 : 1
+              }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              {Object.keys(menuData).map((menuItem, index) => (
+                <div 
+                  key={menuItem}
+                  className="nav-item-container"
+                  onMouseEnter={() => {
+                    setHoveredMenu(menuItem);
+                    setHoveredSubMenu(null);
+                  }}
+                >
+                  <span className="nav-item">{menuItem}</span>
+                </div>
+              ))}
+              
+            </motion.nav>
+          </div>
           <div className="header-icons">
-            <div className="search-icon">
+            <div className="search-icon" onClick={() => setIsSearchModalOpen(true)}>
               <svg viewBox="0 0 37 36" fill="none">
                 <circle cx="14.7333" cy="14.7333" r="12.7333" stroke="black" strokeWidth="4"/>
                 <line x1="25.2142" x2="35.4142" y1="23.5191" y2="33.7191" stroke="black" strokeWidth="4"/>
@@ -241,6 +318,84 @@ export default function Main() {
           </div>
         </div>
       </header>
+
+      {/* 전체 화면 드롭다운 메뉴 */}
+      <AnimatePresence>
+        {(hoveredMenu || hoveredSubMenu) && (
+          <motion.div 
+            className="fullscreen-dropdown-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onMouseLeave={() => {
+              setHoveredMenu(null);
+              setHoveredSubMenu(null);
+            }}
+          >
+            <motion.div 
+              className="fullscreen-dropdown"
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -100, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <motion.div 
+                className="fullscreen-dropdown-content"
+                initial={{ y: -50 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+              >
+                {/* 드롭다운 언더라인 */}
+                <motion.div 
+                  className="dropdown-underline"
+                  animate={{
+                    x: (hoveredMenu || hoveredSubMenu) ? Object.keys(menuData).indexOf(hoveredMenu || Object.keys(menuData).find(menu => menuData[menu as keyof typeof menuData].includes(hoveredSubMenu!)) || '') * 240 : -100,
+                    width: hoveredMenu ? getTextWidth(hoveredMenu) : 120,
+                    opacity: (hoveredMenu || hoveredSubMenu) ? 1 : 0
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+                
+                {Object.keys(menuData).map((menuItem, menuIndex) => (
+                  <div 
+                    key={menuItem}
+                    className="fullscreen-dropdown-column"
+                    onMouseEnter={() => {
+                      setHoveredMenu(menuItem);
+                      setHoveredSubMenu(null);
+                    }}
+                  >
+                    <motion.h3 
+                      className={`dropdown-column-title ${hoveredMenu === menuItem ? 'active' : ''}`}
+                      animate={{ 
+                        opacity: hoveredMenu === menuItem ? 1 : 0.5
+                      }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    >
+                      {menuItem}
+                    </motion.h3>
+                    {menuData[menuItem as keyof typeof menuData].map((subItem, index) => (
+                      <motion.div 
+                        key={subItem}
+                        className="fullscreen-dropdown-item"
+                        onMouseEnter={() => setHoveredSubMenu(subItem)}
+                        animate={{
+                          opacity: (hoveredMenu === menuItem || hoveredSubMenu === subItem) ? 1 : 0.5,
+                          fontWeight: hoveredSubMenu === subItem ? 700 : 500
+                        }}
+                        transition={{ duration: 0.2, delay: (hoveredMenu === menuItem || hoveredSubMenu === subItem) ? index * 0.05 : 0 }}
+                      >
+                        {subItem}
+                      </motion.div>
+                    ))}
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section with Images */}
       <section className="hero-section">
@@ -525,7 +680,7 @@ export default function Main() {
       {/* Ranking Section */}
       <section className="ranking-section">
         <div className="ranking-container">
-          <h2>🏆 예매 순위 TOP 4</h2>
+          <h2>예매 순위</h2>
           <div className="ranking-content">
             <div className="ranking-grid">
               {rankingData.map((item, index) => (
@@ -557,24 +712,66 @@ export default function Main() {
             </div>
           </div>
           
-          <div className="ranking-stats">
-            <div className="ranking-stat">
-              <span className="ranking-stat-number">2,847</span>
-              <span className="ranking-stat-label">이번 달 예매</span>
-            </div>
-            <div className="ranking-stat">
-              <span className="ranking-stat-number">94%</span>
-              <span className="ranking-stat-label">평균 예매율</span>
-            </div>
-            <div className="ranking-stat">
-              <span className="ranking-stat-number">4.8</span>
-              <span className="ranking-stat-label">평균 평점</span>
-            </div>
-            <div className="ranking-stat">
-              <span className="ranking-stat-number">156</span>
-              <span className="ranking-stat-label">리뷰 수</span>
-            </div>
-          </div>
+          <AnimatePresence>
+            {getCurrentStats() && (
+              <motion.div 
+                className="ranking-stats"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 30 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                <div className="ranking-stat">
+                  <motion.span 
+                    className="ranking-stat-number"
+                    key={getCurrentStats()!.tickets}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  >
+                    {getCurrentStats()!.tickets}
+                  </motion.span>
+                  <span className="ranking-stat-label">이번 달 예매</span>
+                </div>
+                <div className="ranking-stat">
+                  <motion.span 
+                    className="ranking-stat-number"
+                    key={getCurrentStats()!.rate}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+                  >
+                    {getCurrentStats()!.rate}
+                  </motion.span>
+                  <span className="ranking-stat-label">평균 예매율</span>
+                </div>
+                <div className="ranking-stat">
+                  <motion.span 
+                    className="ranking-stat-number"
+                    key={getCurrentStats()!.rating}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+                  >
+                    {getCurrentStats()!.rating}
+                  </motion.span>
+                  <span className="ranking-stat-label">평균 평점</span>
+                </div>
+                <div className="ranking-stat">
+                  <motion.span 
+                    className="ranking-stat-number"
+                    key={getCurrentStats()!.reviews}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
+                  >
+                    {getCurrentStats()!.reviews}
+                  </motion.span>
+                  <span className="ranking-stat-label">리뷰 수</span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -638,6 +835,12 @@ export default function Main() {
           </div>
         </div>
       </footer>
+      
+      {/* Search Modal */}
+      <SearchModal 
+        isOpen={isSearchModalOpen} 
+        onClose={() => setIsSearchModalOpen(false)} 
+      />
     </div>
   );
 }

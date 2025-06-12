@@ -1,0 +1,131 @@
+/* Search Modal Overlay */
+.search-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2000;
+  backdrop-filter: blur(3px);
+}
+
+/* Search Modal */
+.search-modal {
+  width: 100vw;
+  height: 60vh;
+  background: #ffffff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Search Content */
+.search-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  position: relative;
+}
+
+.search-input-container {
+  position: relative;
+  width: 100%;
+  max-width: 1036px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 36.7347px;
+  color: #000000;
+  opacity: 0.3;
+  background: transparent;
+  padding: 1rem 0;
+  border-bottom: 6.12245px solid rgba(0, 0, 0, 0.44);
+  text-align: left;
+}
+
+.search-input::placeholder {
+  color: #000000;
+  opacity: 0.3;
+}
+
+.search-input:focus {
+  opacity: 1;
+}
+
+.search-icon-large {
+  position: absolute;
+  right: 1rem;
+  top: 10%;
+  transform: translateY(-50%);
+  width: 52.041px;
+  height: 53.776px;
+  cursor: pointer;
+  opacity: 0.44;
+  transition: opacity 0.2s;
+}
+
+.search-icon-large:hover {
+  opacity: 0.8;
+}
+
+.search-icon-large svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Close Button */
+.search-close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  border-radius: 50%;
+}
+
+.search-close-btn:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.search-close-btn svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search-input {
+    font-size: 20px;
+  }
+  
+  .search-icon-large {
+    right: 1rem;
+  }
+}
