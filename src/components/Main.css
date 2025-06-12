@@ -335,7 +335,25 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
+  align-items: flex-start;
+}
+
+/* Title that spans full width */
+.section-title {
+  grid-column: 1 / -1;
+  margin-bottom: 2rem;
+  padding-left: 0;
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+}
+
+.section-title h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  transform: translateX(8rem); /* 달력 왼쪽 끝에 맞춤 */
 }
 
 /* Calendar Side */
@@ -345,14 +363,7 @@
 }
 
 .calendar-header {
-  margin-bottom: 2rem;
-}
-
-.calendar-header h2 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #000000;
-  margin-bottom: 1rem;
+  display: none; /* 기존 헤더 숨김 */
 }
 
 .calendar-content {

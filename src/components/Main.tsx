@@ -105,15 +105,6 @@ export default function Main() {
       image: imageSrc28,
       color: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
     },
-    {
-      id: 5,
-      title: "재즈 콘서트",
-      subtitle: "밤의 선율",
-      venue: "야외무대",
-      period: "6/4~6/6",
-      image: imageSrc8,
-      color: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
-    }
   ];
 
   // 뉴스 데이터
@@ -124,6 +115,7 @@ export default function Main() {
     { title: "클래식 콘서트 선공개", date: "2025.05.16" },
     { title: "여름 프로그램 안내", date: "2025.05.03" }
   ];
+
   const rankingData = [
     {
       id: 1,
@@ -334,11 +326,12 @@ export default function Main() {
       {/* Calendar & Event Combined Section */}
       <section className="calendar-event-section">
         <div className="calendar-event-container">
+          {/* Section Title */}
+          <div className="section-title">
+            <h2>공연일정</h2>
+          </div>
+          
           <div className="calendar-side">
-            <div className="calendar-header">
-              <h2>공연일정</h2>
-            </div>
-            
             <div className="calendar-content">
               <div className="dial-container">
                 <div className="dial-section">
