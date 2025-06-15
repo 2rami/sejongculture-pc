@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import './Main.css';
-import logoSvg from '../로고.svg';
-import textLogoSvg from '../글씨로고.svg';
+import '../styles/Main.css';
+import logoSvg from '../assets/icons/main-logo.svg';
+import textLogoSvg from '../assets/icons/text-logo.svg';
 import SearchModal from './SearchModal';
-import imageSrc7 from '../imageSrc (7).jpeg';
-import imageSrc8 from '../imageSrc (8).jpeg';
-import imageSrc14 from '../imageSrc (14).jpeg';
-import imageSrc25 from '../imageSrc (25).jpeg';
-import imageSrc26 from '../imageSrc (26).jpeg';
-import imageSrc27 from '../imageSrc (27).jpeg';
-import imageSrc28 from '../imageSrc (28).jpeg';
-import imageSrc4 from '../imageSrc (4).jpeg';
-import imageSrc6 from '../imageSrc (6).jpeg';
-import imageSrc9 from '../imageSrc (9).jpeg';
-import imageSrc15 from '../imageSrc15.jpeg';
+import imageSrc7 from '../assets/images/image-7.jpeg';
+import imageSrc8 from '../assets/images/image-8.jpeg';
+import imageSrc14 from '../assets/images/image-14.jpeg';
+import imageSrc25 from '../assets/images/image-25.jpeg';
+import imageSrc26 from '../assets/images/image-26.jpeg';
+import imageSrc27 from '../assets/images/image-27.jpeg';
+import imageSrc28 from '../assets/images/image-28.jpeg';
+import imageSrc4 from '../assets/images/image-4.jpeg';
+import imageSrc6 from '../assets/images/image-6.jpeg';
+import imageSrc9 from '../assets/images/image-9.jpeg';
+import imageSrc15 from '../assets/images/image-15.jpeg';
 
 export default function Main() {
   const [currentSlide, setCurrentSlide] = useState(0);

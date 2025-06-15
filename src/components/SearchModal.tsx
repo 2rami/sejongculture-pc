@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import './SearchModal.css';
-import logoSvg from '../로고.svg';
+import '../styles/SearchModal.css';
+import logoSvg from '../assets/icons/main-logo.svg';
 
 interface SearchModalProps {
   isOpen: boolean;

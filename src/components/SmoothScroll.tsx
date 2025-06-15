@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import './SmoothScroll.css';
+import '../styles/SmoothScroll.css';
 
 export default function SmoothScroll({
   children
