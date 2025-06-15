@@ -2,7 +2,7 @@
   "name": "react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://2rami.github.io/sejongculture-pc",
+
   "dependencies": {
     "@react-spring/web": "^10.0.1",
     "@testing-library/dom": "^10.4.0",
@@ -25,8 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+
   },
   "eslintConfig": {
     "extends": [
