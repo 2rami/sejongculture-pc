@@ -4,6 +4,7 @@ import '../styles/Main.css';
 import logoSvg from '../assets/icons/main-logo.svg';
 import textLogoSvg from '../assets/icons/text-logo.svg';
 import SearchModal from './SearchModal';
+import SmoothScroll from './SmoothScroll';
 import imageSrc7 from '../assets/images/image-7.jpeg';
 import imageSrc8 from '../assets/images/image-8.jpeg';
 import imageSrc14 from '../assets/images/image-14.jpeg';
@@ -270,7 +271,7 @@ export default function Main() {
   }, []);
 
   return (
-    <div className="main-responsive">
+    <>
       {/* Header Navigation */}
       <header className="header">
         <div className="header-container">
@@ -397,6 +398,8 @@ export default function Main() {
         )}
       </AnimatePresence>
 
+      <SmoothScroll>
+        <div className="main-responsive">
       {/* Hero Section with Images */}
       <section className="hero-section">
         <div className="hero-container">
@@ -841,6 +844,8 @@ export default function Main() {
         isOpen={isSearchModalOpen} 
         onClose={() => setIsSearchModalOpen(false)} 
       />
-    </div>
+        </div>
+      </SmoothScroll>
+    </>
   );
 }

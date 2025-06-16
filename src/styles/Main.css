@@ -18,7 +18,8 @@
   border-bottom: 1px solid rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
-  z-index: 1001;
+  z-index: 9999;
+  width: 100%;
 }
 
 .header-container {
@@ -437,14 +438,14 @@
 
 /* Calendar & Event Combined Section */
 .calendar-event-section {
-  padding: 4rem 0;
+  padding: 4rem 0 0rem 0;
   background: #ffffff;
 }
 
 .calendar-event-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 2rem 0rem 0rem 0rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
@@ -454,7 +455,8 @@
 /* Title that spans full width */
 .section-title {
   grid-column: 1 / -1;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
   padding-left: 0;
   text-align: left;
   display: flex;
@@ -490,7 +492,7 @@
   display: flex;
   gap: 4rem;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   justify-content: center;
   padding: 1rem 0;
 }
@@ -617,7 +619,7 @@
 .calendar-numbers {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   align-items: center;
 }
 
@@ -701,7 +703,7 @@
   perspective: 1200px;
   transform-style: preserve-3d;
   cursor: pointer;
-  margin: 2rem auto 0 auto;
+  margin: 3rem auto 1rem auto;
 }
 
 .event-card {
@@ -967,7 +969,7 @@
 
 /* Ranking Section */
 .ranking-section {
-  padding: 6rem 0;
+  padding: 2rem 0 6rem 0;
   background: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #2a2a2a 100%);
   color: #ffffff;
   position: relative;

@@ -43,7 +43,12 @@ export default function SmoothScroll({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [contentRef, children]);
+  }, [contentRef]);
+
+  // 초기 로드 시에만 스크롤을 맨 위로 설정
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

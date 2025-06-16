@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   will-change: transform;
-  z-index: 1;
+  z-index: 0;
 }
 
 /* 부드러운 스크롤 성능 최적화 */
