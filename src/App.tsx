@@ -11,6 +11,10 @@ import MyPage from './components/pages/MyPage';
 import BookingHistory from './components/pages/BookingHistory';
 import BookingDetail from './components/pages/BookingDetail';
 import MobileTicket from './components/pages/MobileTicket';
+import Coupons from './components/pages/Coupons';
+import Points from './components/pages/Points';
+import Profile from './components/pages/Profile';
+import CustomerService from './components/pages/CustomerService';
 import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 
@@ -31,6 +35,10 @@ function App() {
           <Route path="/mypage/booking-history" element={<BookingHistory />} />
           <Route path="/mypage/booking-detail" element={<BookingDetail />} />
           <Route path="/mypage/mobile-ticket" element={<MobileTicket />} />
+          <Route path="/mypage/coupons" element={<Coupons />} />
+          <Route path="/mypage/points" element={<Points />} />
+          <Route path="/mypage/profile" element={<Profile />} />
+          <Route path="/mypage/customer-service" element={<CustomerService />} />
         </Routes>
       </div>
     </Router>

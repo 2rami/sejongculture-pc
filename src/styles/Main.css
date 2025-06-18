@@ -1046,7 +1046,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 900;
   z-index: 10;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
@@ -1112,7 +1112,7 @@
 }
 
 .ranking-overlay h3 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #ffffff;
