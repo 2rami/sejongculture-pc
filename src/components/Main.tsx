@@ -56,8 +56,8 @@ export default function Main() {
     {
       id: 101,
       image: imageSrc8,
-      venue: "세종M홀",
-      title: "합창, 피어나다",
+      venue: "세종대극장",
+      title: "헤리티지 만찬",
       date: "5/7~5/9"
     },
     {
@@ -113,7 +113,7 @@ export default function Main() {
       },
       {
         id: 202,
-        title: "세종 클래식 콘서트",
+        title: "제9회 오벌린 동문음악회",
         subtitle: "봄의 선율",
         venue: "대극장",
         period: "5/14~5/16",
@@ -337,8 +337,8 @@ export default function Main() {
     {
       id: 302,
       rank: 2,
-      title: "봄의 전설",
-      subtitle: "감동의 무대",
+      title: "파우스트",
+      subtitle: "감동의 오페라",
       period: "2025년 5월 20일 ~ 6월 5일",
       venue: "세종M홀",
       image: imageSrc6,
@@ -352,7 +352,7 @@ export default function Main() {
     {
       id: 303,
       rank: 3,
-      title: "청춘 콘서트",
+      title: "합창, 피어나다",
       subtitle: "젊음의 열정",
       period: "2025년 6월 1일 ~ 6월 15일",
       venue: "소극장",
@@ -367,8 +367,8 @@ export default function Main() {
     {
       id: 304,
       rank: 4,
-      title: "가을 음악회",
-      subtitle: "가을의 선율",
+      title: "해리포터와 혼혈왕자 음악회",
+      subtitle: "마법의 선율",
       period: "2025년 6월 10일 ~ 6월 25일",
       venue: "야외무대",
       image: imageSrc9,
