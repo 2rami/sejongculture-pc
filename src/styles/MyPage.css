@@ -1,0 +1,118 @@
+.mypage {
+  min-height: 100vh;
+  background: #ffffff;
+  padding-top: 6rem;
+}
+
+.mypage-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.mypage-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.mypage-header p {
+  font-size: 1.1rem;
+  color: #666666;
+  margin: 0;
+}
+
+.mypage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mypage-card {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  background: #ffffff;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mypage-card:hover {
+  border-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-content h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #666666;
+  margin: 0;
+}
+
+.card-arrow {
+  font-size: 1.5rem;
+  color: #cccccc;
+  transition: all 0.3s ease;
+  margin-left: 1rem;
+}
+
+.mypage-card:hover .card-arrow {
+  color: #000000;
+  transform: translateX(5px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .mypage {
+    padding-top: 8rem;
+  }
+  
+  .mypage-header h1 {
+    font-size: 2rem;
+  }
+  
+  .mypage-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .mypage-card {
+    padding: 1.5rem;
+  }
+  
+  .card-icon {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+  }
+  
+  .card-content h3 {
+    font-size: 1.2rem;
+  }
+  
+  .card-content p {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,228 @@
+.performance-info-page {
+  min-height: 100vh;
+  background: #ffffff;
+  padding-top: 6rem;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* 공연 정보 헤더 */
+.performance-detail-header {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.performance-image-large {
+  flex-shrink: 0;
+  width: 400px;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.performance-image-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.performance-info-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.genre-badge {
+  background: #000000;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+.performance-info-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.performance-info-content .subtitle {
+  font-size: 1.5rem;
+  color: #666666;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.performance-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detail-item .label {
+  font-weight: 700;
+  color: #000000;
+  min-width: 100px;
+}
+
+.detail-item span:last-child {
+  color: #333333;
+  font-weight: 500;
+}
+
+.booking-button {
+  background: #000000;
+  color: #ffffff;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  width: fit-content;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-top: auto;
+}
+
+.booking-button:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+}
+
+/* 공연 소개 섹션 */
+.performance-description {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid #e0e0e0;
+}
+
+.performance-description h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #000000;
+  padding-bottom: 0.5rem;
+}
+
+.performance-description p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333333;
+  margin: 0;
+}
+
+/* 출연진 섹션 */
+.performance-cast {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.performance-cast h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #000000;
+  padding-bottom: 0.5rem;
+}
+
+.cast-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cast-member {
+  background: #f8f9fa;
+  color: #333333;
+  padding: 0.8rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.cast-member:hover {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .performance-detail-header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .performance-image-large {
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+  }
+  
+  .performance-info-content h1 {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+  
+  .performance-info-content .subtitle {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  
+  .detail-item .label {
+    min-width: auto;
+    font-size: 0.9rem;
+  }
+  
+  .booking-button {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .performance-description,
+  .performance-cast {
+    padding: 1.5rem;
+  }
+  
+  .performance-description h2,
+  .performance-cast h2 {
+    font-size: 1.5rem;
+  }
+}

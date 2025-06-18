@@ -1,0 +1,370 @@
+.booking-detail-page {
+  min-height: 100vh;
+  background: #ffffff;
+  padding-top: 6rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.back-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #666666;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #000000;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: #666666;
+  margin: 0;
+}
+
+.booking-detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 예매 요약 섹션 */
+.booking-summary {
+  display: flex;
+  background: #ffffff;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.booking-image {
+  width: 200px;
+  height: 260px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.booking-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.booking-basic-info {
+  flex: 1;
+}
+
+.booking-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.booking-title-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  flex: 1;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-confirmed {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-cancelled {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-completed {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.booking-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.info-item .label {
+  font-size: 0.9rem;
+  color: #666666;
+  font-weight: 600;
+}
+
+.info-item .value {
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 500;
+}
+
+/* 상세 정보 섹션 */
+.booking-details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.details-card {
+  background: #ffffff;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.details-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.5rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.detail-item .label {
+  font-size: 1rem;
+  color: #666666;
+  font-weight: 600;
+}
+
+.detail-item .value {
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 500;
+  text-align: right;
+}
+
+.detail-item .total-price {
+  font-size: 1.2rem;
+  color: #ff6b6b;
+  font-weight: 700;
+}
+
+/* 정책 내용 */
+.policy-content p {
+  font-size: 1rem;
+  color: #333333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.policy-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.policy-content li {
+  font-size: 0.95rem;
+  color: #666666;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.policy-content li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+/* 액션 버튼 */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.mobile-ticket-btn, .cancel-btn, .review-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid;
+  min-width: 160px;
+}
+
+.mobile-ticket-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: #ffffff;
+  border-color: #ff6b6b;
+}
+
+.mobile-ticket-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+}
+
+.cancel-btn {
+  background: #ffffff;
+  color: #666666;
+  border-color: #e0e0e0;
+}
+
+.cancel-btn:hover {
+  background: #f5f5f5;
+  border-color: #000000;
+  color: #000000;
+}
+
+.review-btn {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.review-btn:hover {
+  background: #333333;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* 에러 메시지 */
+.error-message {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.error-message h2 {
+  font-size: 1.5rem;
+  color: #333333;
+  margin-bottom: 2rem;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: #000000;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #333333;
+  transform: translateY(-2px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .booking-detail-page {
+    padding-top: 8rem;
+  }
+  
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .booking-summary {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .booking-image {
+    width: 160px;
+    height: 200px;
+  }
+  
+  .booking-title-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .booking-title-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .booking-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .detail-item .value {
+    text-align: left;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .mobile-ticket-btn, .cancel-btn, .review-btn {
+    width: 100%;
+  }
+}

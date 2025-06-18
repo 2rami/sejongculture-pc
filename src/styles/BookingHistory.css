@@ -1,0 +1,265 @@
+.booking-history-page {
+  min-height: 100vh;
+  background: #ffffff;
+  padding-top: 6rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.back-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #666666;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #000000;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: #666666;
+  margin: 0;
+}
+
+/* 필터 섹션 */
+.filter-section {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.8rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  background: #ffffff;
+  color: #666666;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  border-color: #000000;
+  color: #000000;
+}
+
+.filter-btn.active {
+  border-color: #000000;
+  background: #000000;
+  color: #ffffff;
+}
+
+/* 예매 내역 리스트 */
+.booking-list {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.booking-item {
+  display: flex;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.booking-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #000000;
+}
+
+.booking-image {
+  width: 120px;
+  height: 160px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.booking-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.booking-info {
+  flex: 1;
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.booking-header h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  flex: 1;
+}
+
+.status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-confirmed {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-cancelled {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-completed {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.booking-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.booking-details p {
+  font-size: 0.95rem;
+  color: #333333;
+  margin: 0;
+}
+
+.booking-details strong {
+  color: #000000;
+  font-weight: 600;
+}
+
+.booking-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.detail-btn, .ticket-btn {
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #000000;
+  background: #ffffff;
+  color: #000000;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.detail-btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.ticket-btn {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.ticket-btn:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: #ffffff;
+  border-color: #ff6b6b;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666666;
+}
+
+.empty-state p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .booking-history-page {
+    padding-top: 8rem;
+  }
+  
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .filter-section {
+    gap: 0.5rem;
+  }
+  
+  .filter-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .booking-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .booking-image {
+    width: 100%;
+    height: 200px;
+    align-self: center;
+    max-width: 150px;
+  }
+  
+  .booking-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .booking-actions {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .detail-btn, .ticket-btn {
+    flex: 1;
+    padding: 0.7rem 1rem;
+  }
+}

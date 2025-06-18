@@ -1,0 +1,198 @@
+.notice-detail-page {
+  min-height: 100vh;
+  background: #ffffff;
+  padding-top: 6rem;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* 브레드크럼 네비게이션 */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb-link {
+  color: #666666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #000000;
+}
+
+.breadcrumb-separator {
+  color: #cccccc;
+}
+
+.breadcrumb-current {
+  color: #000000;
+  font-weight: 500;
+}
+
+/* 공지사항 헤더 */
+.notice-detail-header {
+  border-bottom: 2px solid #000000;
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.important-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 15px;
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-badge {
+  display: inline-block;
+  background: #000000;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 0;
+  margin-bottom: 1rem;
+}
+
+.notice-detail-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.notice-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notice-date {
+  font-size: 1rem;
+  color: #666666;
+}
+
+/* 공지사항 내용 */
+.notice-detail-content {
+  margin-bottom: 4rem;
+}
+
+.content-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333333;
+}
+
+.content-subtitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 2rem 0 1rem 0;
+  border-left: 4px solid #000000;
+  padding-left: 1rem;
+}
+
+.content-paragraph {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.content-list-item {
+  margin-left: 2rem;
+  margin-bottom: 0.5rem;
+  list-style-type: disc;
+  display: list-item;
+}
+
+/* 하단 네비게이션 */
+.notice-detail-navigation {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.back-to-list-btn {
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.back-to-list-btn:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .notice-detail-page {
+    padding-top: 8rem;
+  }
+  
+  .page-container {
+    padding: 0 1rem;
+  }
+  
+  .notice-detail-header h1 {
+    font-size: 2rem;
+  }
+  
+  .content-text {
+    font-size: 1rem;
+  }
+  
+  .content-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .breadcrumb {
+    font-size: 0.8rem;
+  }
+  
+  .notice-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .notice-detail-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .content-subtitle {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.8rem 0;
+  }
+  
+  .back-to-list-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}

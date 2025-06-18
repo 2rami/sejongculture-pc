@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import '../styles/Main.css';
 import logoSvg from '../assets/icons/main-logo.svg';
 import textLogoSvg from '../assets/icons/text-logo.svg';
@@ -53,24 +54,28 @@ export default function Main() {
   // 슬라이더 데이터
   const slides = [
     {
+      id: 101,
       image: imageSrc8,
       venue: "세종M홀",
       title: "합창, 피어나다",
       date: "5/7~5/9"
     },
     {
+      id: 102,
       image: imageSrc7,
       venue: "대극장",
       title: "봄의 전설",
       date: "4/15~4/28"
     },
     {
+      id: 103,
       image: imageSrc14,
       venue: "소극장",
       title: "청춘 콘서트",
       date: "6/1~6/15"
     },
     {
+      id: 104,
       image: imageSrc15,
       venue: "세종아트센터",
       title: "가을 음악회",
@@ -94,45 +99,215 @@ export default function Main() {
     "7-4": { title: "오페라 공연", subtitle: "라 트라비아타", venue: "대극장", period: "7/23~7/25" }
   };
 
-  // 카드 데이터
-  const cardData = [
-    {
-      id: 1,
-      title: "2025 아뜰리에 광화 봄 전시",
-      subtitle: "여명",
-      venue: "야외전시",
-      period: "5/7~5/9",
-      image: imageSrc25,
-      color: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)"
-    },
-    {
-      id: 2,
-      title: "세종 클래식 콘서트",
-      subtitle: "봄의 선율",
-      venue: "대극장",
-      period: "5/14~5/16",
-      image: imageSrc26,
-      color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
-    },
-    {
-      id: 3,
-      title: "청춘 뮤지컬",
-      subtitle: "꿈을 향해",
-      venue: "소극장",
-      period: "5/21~5/23",
-      image: imageSrc27,
-      color: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)"
-    },
-    {
-      id: 4,
-      title: "오케스트라 공연",
-      subtitle: "환상",
-      venue: "세종M홀",
-      period: "5/28~5/30",
-      image: imageSrc28,
-      color: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
-    },
-  ];
+  // 월/주차별 카드 데이터
+  const cardDataByDate: { [key: string]: any[] } = {
+    "5-1": [
+      {
+        id: 201,
+        title: "2025 아뜰리에 광화 봄 전시",
+        subtitle: "여명",
+        venue: "야외전시",
+        period: "5/7~5/9",
+        image: imageSrc25,
+        color: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)"
+      },
+      {
+        id: 202,
+        title: "세종 클래식 콘서트",
+        subtitle: "봄의 선율",
+        venue: "대극장",
+        period: "5/14~5/16",
+        image: imageSrc26,
+        color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+      }
+    ],
+    "5-2": [
+      {
+        id: 203,
+        title: "청춘 뮤지컬",
+        subtitle: "꿈을 향해",
+        venue: "소극장",
+        period: "5/21~5/23",
+        image: imageSrc27,
+        color: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)"
+      },
+      {
+        id: 204,
+        title: "오케스트라 공연",
+        subtitle: "환상",
+        venue: "세종M홀",
+        period: "5/28~5/30",
+        image: imageSrc28,
+        color: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
+      }
+    ],
+    "5-3": [
+      {
+        id: 205,
+        title: "발레 공연",
+        subtitle: "백조의 호수",
+        venue: "대극장",
+        period: "5/21~5/23",
+        image: imageSrc25,
+        color: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)"
+      },
+      {
+        id: 206,
+        title: "재즈 콘서트",
+        subtitle: "밤의 선율",
+        venue: "세종M홀",
+        period: "5/28~5/30",
+        image: imageSrc26,
+        color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+      }
+    ],
+    "5-4": [
+      {
+        id: 207,
+        title: "현대 무용",
+        subtitle: "움직임의 예술",
+        venue: "소극장",
+        period: "5/28~5/30",
+        image: imageSrc27,
+        color: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)"
+      },
+      {
+        id: 208,
+        title: "오페라 갈라",
+        subtitle: "명품 아리아",
+        venue: "대극장",
+        period: "5/29~5/31",
+        image: imageSrc28,
+        color: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
+      }
+    ],
+    "6-1": [
+      {
+        id: 209,
+        title: "여름 음악 축제",
+        subtitle: "시원한 선율",
+        venue: "야외무대",
+        period: "6/4~6/6",
+        image: imageSrc25,
+        color: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)"
+      },
+      {
+        id: 210,
+        title: "실내악 공연",
+        subtitle: "소중한 순간",
+        venue: "세종M홀",
+        period: "6/7~6/9",
+        image: imageSrc26,
+        color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+      }
+    ],
+    "6-2": [
+      {
+        id: 211,
+        title: "국악 공연",
+        subtitle: "전통의 멋",
+        venue: "소극장",
+        period: "6/11~6/13",
+        image: imageSrc27,
+        color: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)"
+      },
+      {
+        id: 212,
+        title: "팝 콘서트",
+        subtitle: "여름밤의 노래",
+        venue: "대극장",
+        period: "6/14~6/16",
+        image: imageSrc28,
+        color: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
+      }
+    ],
+    "6-3": [
+      {
+        id: 213,
+        title: "뮤지컬 갈라",
+        subtitle: "명곡 메들리",
+        venue: "대극장",
+        period: "6/18~6/20",
+        image: imageSrc25,
+        color: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)"
+      },
+      {
+        id: 214,
+        title: "챔버 오케스트라",
+        subtitle: "작은 편성의 대화",
+        venue: "세종M홀",
+        period: "6/21~6/23",
+        image: imageSrc26,
+        color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+      }
+    ],
+    "6-4": [
+      {
+        id: 215,
+        title: "가족 뮤지컬",
+        subtitle: "모험",
+        venue: "소극장",
+        period: "6/25~6/27",
+        image: imageSrc27,
+        color: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)"
+      },
+      {
+        id: 216,
+        title: "클래식 마티네",
+        subtitle: "오후의 여유",
+        venue: "세종M홀",
+        period: "6/28~6/30",
+        image: imageSrc28,
+        color: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
+      }
+    ],
+    "7-1": [
+      {
+        id: 217,
+        title: "여름 특별 공연",
+        subtitle: "한여름밤의 꿈",
+        venue: "대극장",
+        period: "7/2~7/4",
+        image: imageSrc25,
+        color: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)"
+      },
+      {
+        id: 218,
+        title: "기타 앙상블",
+        subtitle: "현악의 조화",
+        venue: "소극장",
+        period: "7/5~7/7",
+        image: imageSrc26,
+        color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+      }
+    ],
+    "7-2": [
+      {
+        id: 219,
+        title: "클래식 갈라",
+        subtitle: "명품 선율",
+        venue: "세종M홀",
+        period: "7/9~7/11",
+        image: imageSrc27,
+        color: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)"
+      },
+      {
+        id: 220,
+        title: "세계 음악 축제",
+        subtitle: "다양한 문화의 만남",
+        venue: "야외무대",
+        period: "7/12~7/14",
+        image: imageSrc28,
+        color: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
+      }
+    ]
+  };
+
+  // 현재 선택된 날짜에 따른 카드 데이터 가져오기
+  const getCurrentCards = () => {
+    const key = `${currentMonth}-${currentWeek}`;
+    return cardDataByDate[key] || cardDataByDate["5-1"];
+  };
 
   // 뉴스 데이터
   const newsData = [
@@ -145,7 +320,7 @@ export default function Main() {
 
   const rankingData = [
     {
-      id: 1,
+      id: 301,
       rank: 1,
       title: "동양미래특급",
       subtitle: "환상적인 공연",
@@ -160,7 +335,7 @@ export default function Main() {
       }
     },
     {
-      id: 2,
+      id: 302,
       rank: 2,
       title: "봄의 전설",
       subtitle: "감동의 무대",
@@ -175,7 +350,7 @@ export default function Main() {
       }
     },
     {
-      id: 3,
+      id: 303,
       rank: 3,
       title: "청춘 콘서트",
       subtitle: "젊음의 열정",
@@ -190,7 +365,7 @@ export default function Main() {
       }
     },
     {
-      id: 4,
+      id: 304,
       rank: 4,
       title: "가을 음악회",
       subtitle: "가을의 선율",
@@ -228,6 +403,8 @@ export default function Main() {
     } else {
       setCurrentWeek(value);
     }
+    // 날짜가 변경되면 카드 인덱스를 0으로 리셋
+    setCurrentCardIndex(0);
   };
 
   // 카드 클릭 핸들러
@@ -275,7 +452,13 @@ export default function Main() {
       {/* Header Navigation */}
       <header className="header">
         <div className="header-container">
-          <div className="logo">
+          <div 
+            className="logo"
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            style={{ cursor: 'pointer' }}
+          >
             <img src={logoSvg} alt="세종문화회관 로고" className="logo-image" />
           </div>
           <div 
@@ -310,12 +493,12 @@ export default function Main() {
                 <line x1="25.2142" x2="35.4142" y1="23.5191" y2="33.7191" stroke="black" strokeWidth="4"/>
               </svg>
             </div>
-            <div className="user-icon">
+            <Link to="/mypage" className="user-icon">
               <svg viewBox="0 0 29 37" fill="none">
                 <circle cx="14" cy="10" r="8" stroke="black" strokeWidth="4"/>
                 <path d="M13 23H15C21.6274 23 27 28.3726 27 35H2V34C2 27.9249 6.92487 23 13 23Z" stroke="black" strokeWidth="4"/>
               </svg>
-            </div>
+            </Link>
           </div>
         </div>
       </header>
@@ -376,20 +559,32 @@ export default function Main() {
                     >
                       {menuItem}
                     </motion.h3>
-                    {menuData[menuItem as keyof typeof menuData].map((subItem, index) => (
-                      <motion.div 
-                        key={subItem}
-                        className="fullscreen-dropdown-item"
-                        onMouseEnter={() => setHoveredSubMenu(subItem)}
-                        animate={{
-                          opacity: (hoveredMenu === menuItem || hoveredSubMenu === subItem) ? 1 : 0.5,
-                          fontWeight: hoveredSubMenu === subItem ? 700 : 500
-                        }}
-                        transition={{ duration: 0.2, delay: (hoveredMenu === menuItem || hoveredSubMenu === subItem) ? index * 0.05 : 0 }}
-                      >
-                        {subItem}
-                      </motion.div>
-                    ))}
+                    {menuData[menuItem as keyof typeof menuData].map((subItem, index) => {
+                      const getLink = (item: string) => {
+                        if (item === '공연/전시') return '/performance-list';
+                        if (item === '공연 정보') return '/performance-info';
+                        if (item === '예매') return '/booking-select';
+                        if (item === '공지사항') return '/notice';
+                        return '#';
+                      };
+
+                      return (
+                        <motion.div 
+                          key={subItem}
+                          className="fullscreen-dropdown-item"
+                          onMouseEnter={() => setHoveredSubMenu(subItem)}
+                          animate={{
+                            opacity: (hoveredMenu === menuItem || hoveredSubMenu === subItem) ? 1 : 0.5,
+                            fontWeight: hoveredSubMenu === subItem ? 700 : 500
+                          }}
+                          transition={{ duration: 0.2, delay: (hoveredMenu === menuItem || hoveredSubMenu === subItem) ? index * 0.05 : 0 }}
+                        >
+                          <Link to={getLink(subItem)} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            {subItem}
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 ))}
               </motion.div>
@@ -414,9 +609,11 @@ export default function Main() {
                 if (!isVisible) return null;
                 
                 return (
-                  <div 
+                  <Link 
                     key={index}
+                    to={`/performance-info?id=${slide.id}`}
                     className={`hero-image-item ${isActive ? 'active' : ''}`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
                   >
                     {slide.image ? (
                       <img src={slide.image} alt={`Hero Image ${index + 1}`} className="hero-image" />
@@ -430,10 +627,19 @@ export default function Main() {
                         <h4>{slide.venue}</h4>
                         <h3>{slide.title}</h3>
                         <p>{slide.date}</p>
-                        <button className="hero-book-btn">예매하기</button>
+                        <button 
+                          className="hero-book-btn"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.location.href = `/booking?id=${slide.id}`;
+                          }}
+                        >
+                          예매하기
+                        </button>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
@@ -620,15 +826,25 @@ export default function Main() {
           
           <div className="event-side">
             <div className="card-stack">
-                {cardData.map((card, index) => {
+              <AnimatePresence mode="wait">
+                {getCurrentCards().map((card, index) => {
+                  const cardData = getCurrentCards();
                   const position = (index - currentCardIndex + cardData.length) % cardData.length;
                   const isActive = position === 0;
                   
                   return (
                     <motion.div 
-                      key={card.id}
+                      key={`${currentMonth}-${currentWeek}-${card.id}`}
                       className={`event-card ${isActive ? 'active' : ''}`}
-                      onClick={() => handleCardClick(index)}
+                      onClick={() => {
+                        if (isActive) {
+                          // 활성화된 카드를 클릭하면 공연 정보 페이지로 이동
+                          window.location.href = `/performance-info?id=${card.id}`;
+                        } else {
+                          // 비활성화된 카드를 클릭하면 해당 카드를 활성화
+                          handleCardClick(index);
+                        }
+                      }}
                       animate={{
                         y: position * -80,
                         opacity: position > 3 ? 0 : Math.max(0.3, 1 - (position * 0.25)),
@@ -644,8 +860,11 @@ export default function Main() {
                         zIndex: cardData.length - position,
                         position: 'absolute',
                         width: '100%',
-                        height: '100%'
+                        height: '100%',
+                        cursor: isActive ? 'pointer' : 'pointer'
                       }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
                     >
                       <motion.div 
                         className="card-content-simple"
@@ -675,6 +894,7 @@ export default function Main() {
                     </motion.div>
                   );
                 })}
+              </AnimatePresence>
             </div>
           </div>
         </div>
@@ -687,30 +907,35 @@ export default function Main() {
           <div className="ranking-content">
             <div className="ranking-grid">
               {rankingData.map((item, index) => (
-                <motion.div 
+                <Link 
                   key={item.id}
-                  className={`ranking-item ${hoveredRankingItem === index ? 'expanded' : ''}`}
-                  data-rank={item.rank}
-                  onMouseEnter={() => setHoveredRankingItem(index)}
-                  onMouseLeave={() => setHoveredRankingItem(null)}
-                  whileHover={{
-                    rotateY: 10,
-                    rotateX: -5,
-                    scale: 1.05,
-                    transition: { duration: 0.3 }
-                  }}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  to={`/performance-info?id=${item.id}`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  <img src={item.image} alt={item.title} className="ranking-image" />
-                  <div className="ranking-overlay">
-                    <h3>{item.title}</h3>
-                    <p>{item.subtitle}</p>
-                    <p>{item.period}</p>
-                    <p>{item.venue}</p>
-                  </div>
-                </motion.div>
+                  <motion.div 
+                    className={`ranking-item ${hoveredRankingItem === index ? 'expanded' : ''}`}
+                    data-rank={item.rank}
+                    onMouseEnter={() => setHoveredRankingItem(index)}
+                    onMouseLeave={() => setHoveredRankingItem(null)}
+                    whileHover={{
+                      rotateY: 10,
+                      rotateX: -5,
+                      scale: 1.05,
+                      transition: { duration: 0.3 }
+                    }}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <img src={item.image} alt={item.title} className="ranking-image" />
+                    <div className="ranking-overlay">
+                      <h3>{item.title}</h3>
+                      <p>{item.subtitle}</p>
+                      <p>{item.period}</p>
+                      <p>{item.venue}</p>
+                    </div>
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </div>
@@ -784,25 +1009,32 @@ export default function Main() {
           <div className="news-content">
             <div className="news-left">
               <img src={textLogoSvg} alt="세종문화회관 글씨 로고" className="news-logo" />
-              <h2>이벤트&소식</h2>
+              <Link to="/notice" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <h2>이벤트&소식</h2>
+              </Link>
             </div>
             
             <div className="news-list">
               {newsData.map((news, index) => (
-                <motion.div 
+                <Link 
                   key={index}
-                  className="news-item"
-                  onMouseEnter={() => setHoveredNewsItem(index)}
-                  onMouseLeave={() => setHoveredNewsItem(null)}
-                  animate={{
-                    scale: hoveredNewsItem === index ? 1.05 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.95 : 1),
-                    opacity: hoveredNewsItem === index ? 1 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.5 : 1)
-                  }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  to={`/notice-detail?id=${index + 1}`}
+                  className="news-item-link"
                 >
-                  <h3>{news.title}</h3>
-                  <span className="news-date">{news.date}</span>
-                </motion.div>
+                  <motion.div 
+                    className="news-item"
+                    onMouseEnter={() => setHoveredNewsItem(index)}
+                    onMouseLeave={() => setHoveredNewsItem(null)}
+                    animate={{
+                      scale: hoveredNewsItem === index ? 1.05 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.95 : 1),
+                      opacity: hoveredNewsItem === index ? 1 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.5 : 1)
+                    }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  >
+                    <h3>{news.title}</h3>
+                    <span className="news-date">{news.date}</span>
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </div>

@@ -1,0 +1,231 @@
+.performance-list-page {
+  min-height: 100vh;
+  background: #ffffff;
+  padding-top: 6rem;
+}
+
+.performance-list-page h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* 장르 필터 */
+.genre-filter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.genre-btn {
+  padding: 0.8rem 1.5rem;
+  border: 2px solid #000000;
+  background: transparent;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+}
+
+.genre-btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.genre-btn.active {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* 공연 그리드 */
+.performance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.performance-card {
+  background: #ffffff;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.performance-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.performance-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.performance-image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.performance-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.performance-card:hover .performance-image {
+  transform: scale(1.05);
+}
+
+.performance-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.performance-card:hover .performance-overlay {
+  opacity: 1;
+}
+
+.genre-tag {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: fit-content;
+  border-radius: 15px;
+}
+
+.book-btn {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  margin-top: auto;
+  width: fit-content;
+  align-self: center;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  z-index: 10;
+}
+
+.book-btn:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.performance-info {
+  padding: 1.5rem;
+}
+
+.performance-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.performance-subtitle {
+  font-size: 1rem;
+  color: #666666;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.performance-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.performance-details p {
+  font-size: 0.9rem;
+  color: #333333;
+  margin: 0;
+}
+
+.performance-details .label {
+  font-weight: 600;
+  color: #000000;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .performance-list-page h1 {
+    font-size: 2rem;
+  }
+  
+  .genre-filter {
+    gap: 0.5rem;
+  }
+  
+  .genre-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .performance-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .performance-image-container {
+    height: 200px;
+  }
+  
+  .performance-info {
+    padding: 1rem;
+  }
+  
+  .performance-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .performance-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .genre-filter {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  
+  .genre-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}

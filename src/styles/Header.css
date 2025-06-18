@@ -1,0 +1,204 @@
+/* Header */
+.header {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-image {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.nav-menu-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  position: relative;
+}
+
+.nav-item-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  padding: 1rem 0.5rem;
+  margin: -1rem -0.5rem;
+}
+
+.nav-item {
+  font-weight: 700;
+  font-size: 18px;
+  color: #000000;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0.3rem 0;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-item:hover {
+  color: #000000;
+}
+
+/* 언더라인 애니메이션 */
+.nav-underline {
+  position: absolute;
+  bottom: -2px;
+  left: 20px;
+  height: 3px;
+  width: 78px;
+  background: #000000;
+}
+
+/* 전체 화면 드롭다운 */
+.fullscreen-dropdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--header-height, 60px) + 300px);
+  background: transparent;
+  z-index: 1000;
+}
+
+.fullscreen-dropdown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  padding-top: var(--header-height, 60px);
+}
+
+.fullscreen-dropdown-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4rem;
+  position: relative;
+}
+
+/* 드롭다운 언더라인 */
+.dropdown-underline {
+  position: absolute;
+  top: 5.2rem;
+  left: 2rem;
+  height: 3px;
+  width: 120px;
+  background: #000000;
+  z-index: 10;
+}
+
+.fullscreen-dropdown-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dropdown-column-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+  opacity: 0.5;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.dropdown-column-title.active {
+  opacity: 1;
+  color: #000000;
+}
+
+.fullscreen-dropdown-item {
+  padding: 0.5rem 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  margin-bottom: 0.3rem;
+}
+
+.fullscreen-dropdown-item:hover {
+  color: #000000;
+}
+
+.header-icons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.search-icon, .user-icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.search-icon svg, .user-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .nav-menu {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .nav-menu span {
+    font-size: 1.2rem;
+  }
+  
+  .fullscreen-dropdown-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fullscreen-dropdown-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
