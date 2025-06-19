@@ -1103,12 +1103,12 @@
   right: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
   padding: 1.5rem;
-  transform: translateY(100%);
+  opacity: 0;
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .ranking-item:hover .ranking-overlay {
-  transform: translateY(0);
+  opacity: 1;
 }
 
 .ranking-overlay h3 {

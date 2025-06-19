@@ -95,21 +95,6 @@ export default function MyPage() {
               </div>
               <Link to="/mypage/profile" className="detail-link">정보 수정하기 →</Link>
             </div>
-            
-            <div className="points-summary">
-              <h3>포인트</h3>
-              <div className="points-info">
-                <div className="current-points">
-                  <span className="points-amount">{profileData.points.toLocaleString()}P</span>
-                  <span className="points-label">보유 포인트</span>
-                </div>
-                <div className="expiring-points">
-                  <span className="expiring-amount">{profileData.expiringPoints.toLocaleString()}P</span>
-                  <span className="expiring-label">소멸 예정</span>
-                </div>
-              </div>
-              <Link to="/mypage/points" className="detail-link">포인트 내역 →</Link>
-            </div>
           </div>
 
           {/* 예매 내역 섹션 */}
@@ -144,19 +129,38 @@ export default function MyPage() {
             </div>
           </div>
 
-          {/* 쿠폰 섹션 */}
+          {/* 포인트 & 쿠폰 통합 섹션 */}
           <div className="section">
             <div className="section-header">
-              <h2>사용 가능한 쿠폰</h2>
-              <Link to="/mypage/coupons" className="more-link">쿠폰 관리 →</Link>
+              <h2>포인트 & 혜택</h2>
+              <div className="section-links">
+                <Link to="/mypage/points" className="more-link">포인트 내역 →</Link>
+                <Link to="/mypage/coupons" className="more-link">쿠폰 관리 →</Link>
+              </div>
             </div>
-            <div className="coupon-list">
+            <div className="benefits-grid">
+              <div className="benefit-card points-card">
+                <div className="benefit-header">
+                  <span className="benefit-title">포인트</span>
+                  <span className="benefit-subtitle">보유 중인 포인트</span>
+                </div>
+                <div className="benefit-content">
+                  <div className="points-value">{profileData.points.toLocaleString()}P</div>
+                  <div className="points-sub-info">
+                    <span className="expiring-text">{profileData.expiringPoints.toLocaleString()}P 소멸 예정</span>
+                  </div>
+                </div>
+              </div>
+              
               {availableCoupons.map((coupon, index) => (
-                <div key={index} className="coupon-item">
-                  <div className="coupon-discount">{coupon.discount}</div>
-                  <div className="coupon-info">
-                    <h4>{coupon.name}</h4>
-                    <p>유효기간: {coupon.expiry}</p>
+                <div key={index} className="benefit-card coupon-card">
+                  <div className="benefit-header">
+                    <span className="benefit-title">쿠폰</span>
+                    <span className="benefit-subtitle">{coupon.discount} 할인</span>
+                  </div>
+                  <div className="benefit-content">
+                    <div className="coupon-name">{coupon.name}</div>
+                    <div className="coupon-expiry">유효기간: {coupon.expiry}</div>
                   </div>
                 </div>
               ))}

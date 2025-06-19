@@ -24,28 +24,30 @@
 
 /* 개인정보 요약 */
 .profile-summary {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
+  display: flex;
+  justify-content: center;
   margin-bottom: 3rem;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.profile-info, .points-summary {
+.profile-info {
   background: #ffffff;
   border: 2px solid #f0f0f0;
   border-radius: 16px;
   padding: 2rem;
+  max-width: 500px;
+
 }
 
-.profile-info h3, .points-summary h3 {
+.profile-info h3 {
   font-size: 1.4rem;
   font-weight: 700;
   color: #000000;
   margin-bottom: 1.5rem;
 }
+
 
 .info-grid {
   display: grid;
@@ -74,36 +76,6 @@
   font-weight: 500;
 }
 
-.points-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-}
-
-.current-points, .expiring-points {
-  text-align: center;
-}
-
-.points-amount {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #667eea;
-  margin-bottom: 0.3rem;
-}
-
-.expiring-amount {
-  display: block;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #ff6b6b;
-  margin-bottom: 0.3rem;
-}
-
-.points-label, .expiring-label {
-  font-size: 0.8rem;
-  color: #666666;
-}
 
 .detail-link {
   color: #ff6b6b;
@@ -116,6 +88,7 @@
 .detail-link:hover {
   color: #000000;
 }
+
 
 /* 섹션 공통 스타일 */
 .section {
@@ -269,39 +242,95 @@
   box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
 
-/* 쿠폰 리스트 */
-.coupon-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-}
-
-.coupon-item {
+/* 포인트 & 쿠폰 통합 섹션 */
+.section-links {
   display: flex;
-  align-items: center;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 12px;
-  color: #ffffff;
   gap: 1rem;
 }
 
-.coupon-discount {
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.benefit-card {
+  background: #ffffff;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card:hover {
+  border-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.points-card {
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: #ffffff;
+  border: none;
+}
+
+.coupon-card {
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: #ffffff;
+  border: none;
+}
+
+.benefit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.benefit-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.benefit-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.benefit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.points-value {
   font-size: 2rem;
   font-weight: 700;
-  flex-shrink: 0;
+  color: #ffffff;
 }
 
-.coupon-info h4 {
+.points-sub-info {
+  display: flex;
+  align-items: center;
+}
+
+.expiring-text {
+  font-size: 0.85rem;
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.coupon-name {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.3rem;
 }
 
-.coupon-info p {
+.coupon-expiry {
   font-size: 0.8rem;
   opacity: 0.9;
-  margin: 0;
 }
 
 /* 포인트 리스트 */
@@ -397,8 +426,7 @@
 /* 반응형 디자인 */
 @media (max-width: 1024px) {
   .profile-summary {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    justify-content: center;
   }
 }
 
@@ -411,7 +439,7 @@
     font-size: 2rem;
   }
   
-  .profile-info, .points-summary {
+  .profile-info {
     padding: 1.5rem;
   }
   
@@ -437,8 +465,13 @@
     flex: 1;
   }
   
-  .coupon-list {
+  .benefits-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .section-links {
+    flex-direction: column;
+    gap: 0.5rem;
   }
   
   .point-item {

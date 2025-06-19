@@ -30,7 +30,6 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 0;
 }
 
 .genre-btn:hover {
@@ -53,7 +52,7 @@
 
 .performance-card {
   background: #ffffff;
-  border-radius: 0;
+  border-radius: 0 !important;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -77,17 +76,44 @@
   position: relative;
   height: 250px;
   overflow: hidden;
+  background: #f5f5f5;
 }
 
 .performance-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: all 0.3s ease;
+  display: block !important;
+  border: none !important;
+  outline: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.image-placeholder {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 1rem;
+}
+
+.image-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #999;
+  font-size: 1rem;
+  z-index: 1;
 }
 
 .performance-card:hover .performance-image {
-  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 .performance-overlay {

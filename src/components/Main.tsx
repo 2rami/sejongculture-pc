@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import '../styles/Main.css';
@@ -29,6 +29,14 @@ export default function Main() {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const [hoveredSubMenu, setHoveredSubMenu] = useState<string | null>(null);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+
+  // 섹션 refs
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const calendarRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const rankingRef = useRef<HTMLDivElement>(null);
+  const newsRef = useRef<HTMLDivElement>(null);
 
   // 텍스트 길이에 따른 언더라인 길이 계산
   const getTextWidth = (text: string) => {
@@ -447,6 +455,49 @@ export default function Main() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Intersection Observer for scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-100px 0px',
+      threshold: 0.1
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        const sectionId = entry.target.getAttribute('data-section');
+        if (entry.isIntersecting && sectionId) {
+          setVisibleSections(prev => new Set(prev).add(sectionId));
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // 관찰할 섹션들
+    const sections = [
+      { ref: sliderRef, id: 'slider' },
+      { ref: calendarRef, id: 'calendar' },
+      { ref: cardsRef, id: 'cards' },
+      { ref: rankingRef, id: 'ranking' },
+      { ref: newsRef, id: 'news' }
+    ];
+
+    sections.forEach(({ ref }) => {
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+    });
+
+    return () => {
+      sections.forEach(({ ref }) => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      });
+    };
+  }, []);
+
   return (
     <>
       {/* Header Navigation */}
@@ -688,14 +739,34 @@ export default function Main() {
       </section>
 
       {/* Calendar & Event Combined Section */}
-      <section className="calendar-event-section">
+      <motion.section 
+        className="calendar-event-section"
+        ref={calendarRef}
+        data-section="calendar"
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ 
+          opacity: visibleSections.has('calendar') ? 1 : 0,
+          y: visibleSections.has('calendar') ? 0 : 60
+        }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="calendar-event-container">
           {/* Section Title */}
           <div className="section-title">
             <h2>공연일정</h2>
           </div>
           
-          <div className="calendar-side">
+          <motion.div 
+            className="calendar-side"
+            ref={sliderRef}
+            data-section="slider"
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ 
+              opacity: visibleSections.has('slider') ? 1 : 0,
+              x: visibleSections.has('slider') ? 0 : -60
+            }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <div className="calendar-content">
               <div className="dial-container">
                 <div className="dial-section">
@@ -822,9 +893,19 @@ export default function Main() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="event-side">
+          <motion.div 
+            className="event-side"
+            ref={cardsRef}
+            data-section="cards"
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ 
+              opacity: visibleSections.has('cards') ? 1 : 0,
+              x: visibleSections.has('cards') ? 0 : 60
+            }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+          >
             <div className="card-stack">
               <AnimatePresence mode="wait">
                 {getCurrentCards().map((card, index) => {
@@ -896,12 +977,22 @@ export default function Main() {
                 })}
               </AnimatePresence>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Ranking Section */}
-      <section className="ranking-section">
+      <motion.section 
+        className="ranking-section"
+        ref={rankingRef}
+        data-section="ranking"
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ 
+          opacity: visibleSections.has('ranking') ? 1 : 0,
+          y: visibleSections.has('ranking') ? 0 : 60
+        }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="ranking-container">
           <h2>예매 순위</h2>
           <div className="ranking-content">
@@ -1001,18 +1092,82 @@ export default function Main() {
             )}
           </AnimatePresence>
         </div>
-      </section>
+      </motion.section>
 
       {/* News Section */}
-      <section className="news-section">
+      <motion.section 
+        className="news-section"
+        ref={newsRef}
+        data-section="news"
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ 
+          opacity: visibleSections.has('news') ? 1 : 0,
+          y: visibleSections.has('news') ? 0 : 60
+        }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="news-container">
           <div className="news-content">
-            <div className="news-left">
-              <img src={textLogoSvg} alt="세종문화회관 글씨 로고" className="news-logo" />
+            <motion.div 
+              className="news-left"
+              initial={{ opacity: 0, x: -60, rotateY: -20 }}
+              animate={{
+                opacity: visibleSections.has('news') ? 1 : 0,
+                x: visibleSections.has('news') ? 0 : -60,
+                rotateY: visibleSections.has('news') ? 0 : -20
+              }}
+              transition={{ 
+                type: "spring",
+                stiffness: 150,
+                damping: 25,
+                delay: 0.2
+              }}
+            >
+              <motion.img 
+                src={textLogoSvg} 
+                alt="세종문화회관 글씨 로고" 
+                className="news-logo"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ 
+                  scale: visibleSections.has('news') ? 1 : 0,
+                  rotate: visibleSections.has('news') ? 0 : -180
+                }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 15,
+                  delay: 0.1
+                }}
+                whileHover={{ 
+                  scale: 1.1, 
+                  rotate: 5,
+                  transition: { duration: 0.3 }
+                }}
+              />
               <Link to="/notice" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <h2>이벤트&소식</h2>
+                <motion.h2
+                  initial={{ opacity: 0, y: 30, skewX: -15 }}
+                  animate={{
+                    opacity: visibleSections.has('news') ? 1 : 0,
+                    y: visibleSections.has('news') ? 0 : 30,
+                    skewX: visibleSections.has('news') ? 0 : -15
+                  }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 180,
+                    damping: 20,
+                    delay: 0.3
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    color: "#ff6b6b",
+                    transition: { duration: 0.2 }
+                  }}
+                >
+                  이벤트&소식
+                </motion.h2>
               </Link>
-            </div>
+            </motion.div>
             
             <div className="news-list">
               {newsData.map((news, index) => (
@@ -1025,11 +1180,33 @@ export default function Main() {
                     className="news-item"
                     onMouseEnter={() => setHoveredNewsItem(index)}
                     onMouseLeave={() => setHoveredNewsItem(null)}
-                    animate={{
-                      scale: hoveredNewsItem === index ? 1.05 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.95 : 1),
-                      opacity: hoveredNewsItem === index ? 1 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.5 : 1)
+                    initial={{ 
+                      opacity: 0, 
+                      x: 80, 
+                      y: 20,
+                      rotateX: -15,
+                      scale: 0.8
                     }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    animate={{
+                      opacity: visibleSections.has('news') ? 1 : 0,
+                      x: visibleSections.has('news') ? 0 : 80,
+                      y: visibleSections.has('news') ? 0 : 20,
+                      rotateX: visibleSections.has('news') ? 0 : -15,
+                      scale: hoveredNewsItem === index ? 1.08 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.95 : (visibleSections.has('news') ? 1 : 0.8))
+                    }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 20,
+                      delay: visibleSections.has('news') ? index * 0.08 : 0,
+                      scale: { duration: 0.3, ease: "easeOut" }
+                    }}
+                    whileHover={{
+                      scale: 1.08,
+                      rotateY: 5,
+                      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
+                      transition: { duration: 0.2 }
+                    }}
                   >
                     <h3>{news.title}</h3>
                     <span className="news-date">{news.date}</span>
@@ -1039,7 +1216,7 @@ export default function Main() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
       <footer className="footer">
