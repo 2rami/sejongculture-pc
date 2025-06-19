@@ -1192,7 +1192,12 @@ export default function Main() {
                       x: visibleSections.has('news') ? 0 : 80,
                       y: visibleSections.has('news') ? 0 : 20,
                       rotateX: visibleSections.has('news') ? 0 : -15,
-                      scale: hoveredNewsItem === index ? 1.08 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.95 : (visibleSections.has('news') ? 1 : 0.8))
+                      scale: visibleSections.has('news') ? 
+                        (hoveredNewsItem === index ? 1.08 : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 0.95 : 1)) 
+                        : 0.8,
+                      filter: visibleSections.has('news') ? 
+                        (hoveredNewsItem === index ? 'blur(0px)' : (hoveredNewsItem !== null && hoveredNewsItem !== index ? 'blur(2px)' : 'blur(0px)'))
+                        : 'blur(0px)'
                     }}
                     transition={{ 
                       type: "spring",
@@ -1202,9 +1207,7 @@ export default function Main() {
                       scale: { duration: 0.3, ease: "easeOut" }
                     }}
                     whileHover={{
-                      scale: 1.08,
-                      rotateY: 5,
-                      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
+                      scale: 1.03,
                       transition: { duration: 0.2 }
                     }}
                   >
