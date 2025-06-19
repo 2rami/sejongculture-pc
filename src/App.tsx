@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './components/Main';
 import PerformanceList from './components/pages/PerformanceList';
@@ -16,9 +16,28 @@ import Points from './components/pages/Points';
 import Profile from './components/pages/Profile';
 import CustomerService from './components/pages/CustomerService';
 import ScrollToTop from './components/ScrollToTop';
+import LoadingAnimation from './components/LoadingAnimation';
 import './App.css';
 
 function App() {
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+  useEffect(() => {
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    if (hasVisited) {
+      setIsInitialLoading(false);
+    }
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setIsInitialLoading(false);
+    sessionStorage.setItem('hasVisited', 'true');
+  };
+
+  if (isInitialLoading) {
+    return <LoadingAnimation onComplete={handleLoadingComplete} />;
+  }
+
   return (
     <Router>
       <ScrollToTop />

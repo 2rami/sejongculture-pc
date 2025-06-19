@@ -1277,6 +1277,9 @@
   gap: 2rem;
   margin-bottom: 2rem;
   flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #333333;
 }
 
 .footer-links span {

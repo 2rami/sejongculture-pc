@@ -3,12 +3,6 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import '../../styles/Booking.css';
 
-// sub-2 asset 이미지들 import
-import src2_1 from '../../assets/images/sub-2 asset/src2-1.jpeg';
-import src2_2 from '../../assets/images/sub-2 asset/src2-2.jpg';
-import src2_3 from '../../assets/images/sub-2 asset/src2-3.jpg';
-import src2_4 from '../../assets/images/sub-2 asset/src2-4.jpg';
-import src2_5 from '../../assets/images/sub-2 asset/src2-5.jpg';
 
 // main 이미지들 import (홈에서 사용하는 이미지들)
 import imageSrc4 from '../../assets/images/image-4.jpeg';
@@ -534,10 +528,15 @@ export default function Booking() {
     <>
       <Header />
       <div className="booking-page">
-        <div className="page-container" style={{'--bg-image': `url(${currentPerformance.image})`} as React.CSSProperties}>
-        <div className="booking-header">
-          <div className="performance-image">
-            <img src={currentPerformance.image} alt={currentPerformance.title} />
+        <div className="page-container">
+        {/* 포스터와 공연 정보 분리 */}
+        <div className="poster-info-section">
+          <div className="poster-container">
+            <img 
+              src={currentPerformance.image} 
+              alt={currentPerformance.title}
+              className="performance-poster"
+            />
           </div>
           <div className="performance-info">
             <h1>{currentPerformance.title}</h1>
