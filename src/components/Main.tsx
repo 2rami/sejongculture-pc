@@ -398,11 +398,6 @@ export default function Main() {
     return null;
   };
 
-  // 현재 이벤트 가져오기
-  const getCurrentEvent = () => {
-    const key = `${currentMonth}-${currentWeek}`;
-    return eventData[key] || eventData["5-1"];
-  };
 
   // 다이얼 숫자 클릭 핸들러
   const handleNumberClick = (type: 'month' | 'week', value: number) => {
@@ -441,7 +436,7 @@ export default function Main() {
       const interval = setInterval(goToNextSlide, 4000);
       return () => clearInterval(interval);
     }
-  }, [isPlaying]);
+  }, [isPlaying, goToNextSlide]);
 
   useEffect(() => {
     // 5초 후에 도르래 애니메이션 시작
@@ -682,7 +677,7 @@ export default function Main() {
                     style={{ textDecoration: 'none', color: 'inherit' }}
                   >
                     {slide.image ? (
-                      <img src={slide.image} alt={`Hero Image ${index + 1}`} className="hero-image" />
+                      <img src={slide.image} alt={slide.title} className="hero-image" />
                     ) : (
                       <div className="hero-image-placeholder">
                         <span>이미지 {index + 1}</span>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Lottie from 'lottie-react';
 import loadingAnimation from '../assets/icons/loadingani.json';
 import textLogo from '../assets/icons/text-logo.svg';
@@ -68,15 +68,6 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({
     }
   }, [showFullBuilding]);
 
-  // lottie-react에서는 speed prop이 없으므로 CSS animation으로 제어
-  const getLottieAnimationDuration = () => {
-    switch (animationPhase) {
-      case 'single': return '8s'; // 기둥 하나씩 느리게
-      case 'group': return '5s'; // 3개 합쳐질 때 중간 속도  
-      case 'complete': return '3s'; // 지붕 내려올 때 빠르게
-      default: return '6s';
-    }
-  };
 
   // 단계별 애니메이션 스타일
   const getAnimationStyle = () => {

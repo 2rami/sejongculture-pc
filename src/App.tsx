@@ -24,8 +24,8 @@ function App() {
   // 앱 시작시 스크롤을 맨 위로 강제 이동 (Vercel 대응)
   useLayoutEffect(() => {
     // 브라우저 히스토리 복원 방지
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
     }
     
     // 강제 스크롤 초기화

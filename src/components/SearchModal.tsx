@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/SearchModal.css';
-import logoSvg from '../assets/icons/main-logo.svg';
+// import logoSvg from '../assets/icons/main-logo.svg';
 
 interface SearchModalProps {
   isOpen: boolean;
