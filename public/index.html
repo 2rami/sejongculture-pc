@@ -13,6 +13,33 @@
     />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>세종문화회관</title>
+    
+    <!-- Vercel 스크롤 문제 해결 -->
+    <script>
+      // 페이지 로드 전에 스크롤 위치 강제 초기화
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+      
+      // DOM 로드 후에도 실행
+      document.addEventListener('DOMContentLoaded', function() {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        window.scrollTo(0, 0);
+      });
+      
+      // 페이지 완전 로드 후에도 실행
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          window.scrollTo(0, 0);
+        }, 0);
+      });
+    </script>
   </head>
   <body>
     <noscript>JavaScript를 활성화해주세요.</noscript>
