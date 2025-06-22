@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../Header';
-import '../../styles/PerformanceInfo.css';
+import SmoothScroll from '../SmoothScroll';
 
 // sub asset 이미지들 import
 import sub1 from '../../assets/images/sub asset/sub1.jpg';
@@ -387,64 +388,280 @@ export default function PerformanceInfo() {
 
   const currentPerformance = performances[performanceId] || performances['1'];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6 }
+    }
+  };
+
   return (
-    <>
+    <SmoothScroll>
       <Header />
-      <div className="performance-info-page">
-        <div className="page-container">
-          <div className="performance-detail-header">
-            <div className="performance-image-large">
-              <img src={currentPerformance.image} alt={currentPerformance.title} />
-            </div>
-            <div className="performance-info-content">
-              <div className="genre-badge">{currentPerformance.genre}</div>
-              <h1>{currentPerformance.title}</h1>
-              <p className="subtitle">{currentPerformance.subtitle}</p>
+      <motion.div
+        style={{
+          background: '#ffffff',
+          minHeight: '100vh',
+          paddingTop: '6rem'
+        }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 2rem'
+        }}>
+          <motion.div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '4rem',
+              marginBottom: '4rem'
+            }}
+            variants={itemVariants}
+          >
+            <motion.div
+              style={{
+                position: 'relative',
+                height: '600px',
+                overflow: 'hidden'
+              }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img
+                src={currentPerformance.image}
+                alt={currentPerformance.title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+            </motion.div>
+            
+            <motion.div style={{ padding: '2rem 0' }} variants={itemVariants}>
+              <motion.div
+                style={{
+                  background: '#f0f0f0',
+                  color: '#000000',
+                  padding: '0.5rem 1.5rem',
+                  fontSize: '0.9rem',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '2px',
+                  marginBottom: '2rem',
+                  display: 'inline-block'
+                }}
+                whileHover={{ background: '#000000', color: '#ffffff' }}
+                transition={{ duration: 0.3 }}
+              >
+                {currentPerformance.genre}
+              </motion.div>
               
-              <div className="performance-details">
-                <div className="detail-item">
-                  <span className="label">장소:</span>
-                  <span>{currentPerformance.venue}</span>
-                </div>
-                <div className="detail-item">
-                  <span className="label">기간:</span>
-                  <span>{currentPerformance.period}</span>
-                </div>
-                <div className="detail-item">
-                  <span className="label">가격:</span>
-                  <span>{currentPerformance.price}</span>
-                </div>
-                <div className="detail-item">
-                  <span className="label">공연시간:</span>
-                  <span>{currentPerformance.duration}</span>
-                </div>
-                <div className="detail-item">
-                  <span className="label">관람등급:</span>
-                  <span>{currentPerformance.rating}</span>
-                </div>
-              </div>
+              <motion.h1
+                style={{
+                  fontSize: '3rem',
+                  fontWeight: '700',
+                  margin: '0 0 1rem 0',
+                  color: '#000000',
+                  textTransform: 'uppercase',
+                  letterSpacing: '2px'
+                }}
+                variants={itemVariants}
+              >
+                {currentPerformance.title}
+              </motion.h1>
               
-              <Link to={`/booking?id=${currentPerformance.id}`} className="booking-button">
-                예매하기
-              </Link>
+              <motion.p
+                style={{
+                  fontSize: '1.3rem',
+                  color: '#666666',
+                  margin: '0 0 3rem 0',
+                  fontWeight: '400'
+                }}
+                variants={itemVariants}
+              >
+                {currentPerformance.subtitle}
+              </motion.p>
+              
+              <motion.div style={{ marginBottom: '3rem' }} variants={itemVariants}>
+                {[
+                  { label: '장소', value: currentPerformance.venue },
+                  { label: '기간', value: currentPerformance.period },
+                  { label: '가격', value: currentPerformance.price },
+                  { label: '공연시간', value: currentPerformance.duration },
+                  { label: '관람등급', value: currentPerformance.rating }
+                ].map((detail, index) => (
+                  <motion.div
+                    key={index}
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '120px 1fr',
+                      gap: '1rem',
+                      padding: '1rem 0',
+                      borderBottom: '1px solid #e0e0e0'
+                    }}
+                    whileHover={{ backgroundColor: '#f8f8f8' }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span style={{
+                      color: '#999999',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px',
+                      fontWeight: '600',
+                      fontSize: '0.9rem'
+                    }}>
+                      {detail.label}
+                    </span>
+                    <span style={{
+                      color: '#000000',
+                      fontWeight: '600'
+                    }}>
+                      {detail.value}
+                    </span>
+                  </motion.div>
+                ))}
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Link
+                  to={`/booking?id=${currentPerformance.id}`}
+                  style={{
+                    background: '#000000',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '1.5rem 3rem',
+                    fontSize: '1.1rem',
+                    fontWeight: '700',
+                    textDecoration: 'none',
+                    textTransform: 'uppercase',
+                    letterSpacing: '2px',
+                    display: 'inline-block',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#333333';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#000000';
+                  }}
+                >
+                  예매하기
+                </Link>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+          
+          <motion.div
+            style={{
+              background: '#ffffff',
+              border: '2px solid #000000',
+              marginBottom: '3rem'
+            }}
+            variants={itemVariants}
+          >
+            <div style={{
+              background: '#000000',
+              color: '#ffffff',
+              padding: '1.5rem 2rem'
+            }}>
+              <h2 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                margin: '0',
+                textTransform: 'uppercase',
+                letterSpacing: '2px'
+              }}>
+                공연 소개
+              </h2>
             </div>
-          </div>
+            <div style={{ padding: '2rem' }}>
+              <p style={{
+                fontSize: '1.1rem',
+                lineHeight: '1.8',
+                color: '#333333',
+                margin: '0'
+              }}>
+                {currentPerformance.description}
+              </p>
+            </div>
+          </motion.div>
           
-          <div className="performance-description">
-            <h2>공연 소개</h2>
-            <p>{currentPerformance.description}</p>
-          </div>
-          
-          <div className="performance-cast">
-            <h2>출연진 / 스태프</h2>
-            <div className="cast-list">
+          <motion.div
+            style={{
+              background: '#ffffff',
+              border: '2px solid #000000',
+              marginBottom: '3rem'
+            }}
+            variants={itemVariants}
+          >
+            <div style={{
+              background: '#000000',
+              color: '#ffffff',
+              padding: '1.5rem 2rem'
+            }}>
+              <h2 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                margin: '0',
+                textTransform: 'uppercase',
+                letterSpacing: '2px'
+              }}>
+                출연진 / 스태프
+              </h2>
+            </div>
+            <div style={{
+              padding: '2rem',
+              display: 'flex',
+              gap: '1rem',
+              flexWrap: 'wrap'
+            }}>
               {currentPerformance.cast.map((member, index) => (
-                <span key={index} className="cast-member">{member}</span>
+                <motion.span
+                  key={index}
+                  style={{
+                    background: '#f0f0f0',
+                    color: '#000000',
+                    padding: '0.8rem 1.5rem',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}
+                  whileHover={{
+                    background: '#000000',
+                    color: '#ffffff',
+                    scale: 1.05
+                  }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {member}
+                </motion.span>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </>
+      </motion.div>
+    </SmoothScroll>
   );
 }

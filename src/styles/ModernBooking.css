@@ -1,0 +1,709 @@
+/* 미니멀 예매페이지 스타일 */
+.modern-booking-page {
+  background: #ffffff;
+  min-height: 100vh;
+  color: #000000;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  scroll-behavior: smooth;
+}
+
+
+/* 히어로 섹션 */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 2rem;
+  color: #ffffff;
+  width: 100%;
+}
+
+.performance-badge {
+  display: inline-block;
+  background: #000000;
+  color: #ffffff;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  margin-bottom: 3rem;
+  font-weight: 400;
+}
+
+.performance-details {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.modern-booking-page .detail-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  min-width: auto !important;
+  max-width: none !important;
+}
+
+.modern-booking-page .detail-label {
+  font-size: 1rem !important;
+  color: #ffffff !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  font-weight: 700 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+.modern-booking-page .detail-text {
+  font-weight: 900 !important;
+  font-size: 1.2rem !important;
+  color: #ffffff !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #d0d0d0;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.start-booking-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  border: 2px solid #ffffff;
+  padding: 1.5rem 4rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: inline-block;
+  margin-top: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.start-booking-btn:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* 예매 단계 섹션 */
+.booking-step {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.booking-step:nth-child(even) {
+  background: #fafafa;
+}
+
+.step-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  text-align: left;
+}
+
+.step-number {
+  width: 80px;
+  height: 80px;
+  background: #000000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.step-info h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.step-info p {
+  font-size: 1.1rem;
+  color: #666666;
+  font-weight: 400;
+}
+
+/* 날짜 선택 그리드 */
+.date-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: #e0e0e0;
+  margin-top: 2rem;
+}
+
+.date-card {
+  background: #ffffff;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  position: relative;
+}
+
+.date-card:hover {
+  background: #f5f5f5;
+}
+
+.date-card.selected {
+  background: #000000;
+  color: #ffffff;
+}
+
+.date-month {
+  font-size: 0.9rem;
+  color: #999999;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.date-card.selected .date-month {
+  color: #cccccc;
+}
+
+.date-day {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.date-card.selected .date-day {
+  color: #ffffff;
+}
+
+.date-weekday {
+  font-size: 1rem;
+  color: #666666;
+  margin-bottom: 1rem;
+}
+
+.date-card.selected .date-weekday {
+  color: #e0e0e0;
+}
+
+.date-status {
+  font-size: 0.8rem;
+  color: #999999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.date-card.selected .date-status {
+  color: #cccccc;
+}
+
+/* 시간 선택 그리드 */
+.time-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1px;
+  background: #e0e0e0;
+  margin-top: 2rem;
+}
+
+.time-card {
+  background: #ffffff;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.time-card:hover {
+  background: #f5f5f5;
+}
+
+.time-card.selected {
+  background: #000000;
+  color: #ffffff;
+}
+
+.time-main {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.time-card.selected .time-main {
+  color: #ffffff;
+}
+
+.time-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seats-available {
+  color: #666666;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.time-card.selected .seats-available {
+  color: #cccccc;
+}
+
+.time-duration {
+  color: #999999;
+  font-size: 0.9rem;
+}
+
+.time-card.selected .time-duration {
+  color: #cccccc;
+}
+
+/* 좌석 등급 그리드 */
+.seat-grade-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1px;
+  background: #e0e0e0;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.seat-grade-card {
+  background: #ffffff;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.seat-grade-card:hover {
+  background: #f5f5f5;
+}
+
+.seat-grade-card.selected {
+  background: #000000;
+  color: #ffffff;
+}
+
+.grade-icon {
+  width: 60px;
+  height: 60px;
+  background: #000000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.seat-grade-card.selected .grade-icon {
+  background: #ffffff;
+  color: #000000;
+}
+
+.grade-info h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.seat-grade-card.selected .grade-info h3 {
+  color: #ffffff;
+}
+
+.grade-price {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #666666;
+  margin-bottom: 0.5rem;
+}
+
+.seat-grade-card.selected .grade-price {
+  color: #e0e0e0;
+}
+
+.grade-remaining {
+  font-size: 0.9rem;
+  color: #999999;
+  margin-bottom: 1rem;
+}
+
+.seat-grade-card.selected .grade-remaining {
+  color: #cccccc;
+}
+
+.grade-benefits {
+  font-size: 0.9rem;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.seat-grade-card.selected .grade-benefits {
+  color: #cccccc;
+}
+
+/* 좌석맵 미리보기 */
+.seat-map-preview {
+  background: #fafafa;
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 1px solid #e0e0e0;
+}
+
+.stage-preview {
+  background: #000000;
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+}
+
+.seat-map-mini {
+  background: #1a1a1a;
+  padding: 1.5rem;
+  min-height: 300px;
+  overflow-x: auto;
+}
+
+/* 최종 예매 섹션 */
+.final-booking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.modern-booking-page .booking-summary,
+.modern-booking-page .ticket-count-section,
+.modern-booking-page .payment-section {
+  background: #fafafa !important;
+  border: 1px solid #e0e0e0 !important;
+  padding: 2rem !important;
+}
+
+.modern-booking-page .booking-summary .summary-item {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.booking-summary h3,
+.ticket-count-section h3,
+.payment-section h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.summary-item {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 1rem 0 !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.modern-booking-page .summary-item * {
+  writing-mode: horizontal-tb !important;
+  direction: ltr !important;
+  display: inline !important;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  color: #666666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+.summary-value {
+  color: #000000;
+  font-weight: 600;
+}
+
+/* 매수 선택 */
+.count-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.count-btn {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000000;
+  background: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.count-btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.count-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.count-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+.count-label {
+  font-size: 0.9rem;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.count-limit {
+  text-align: center;
+  color: #999999;
+  font-size: 0.9rem;
+}
+
+/* 결제 정보 */
+.price-breakdown {
+  margin-bottom: 1.5rem;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.price-item.fee {
+  color: #666666;
+  font-size: 0.9rem;
+}
+
+.total-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: #000000;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* 최종 예매 버튼 */
+.final-booking-btn {
+  width: 100%;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 1.5rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.final-booking-btn:hover {
+  background: #333333;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .performance-details {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .detail-item {
+    padding: 0.8rem 1.5rem;
+    gap: 0.8rem;
+  }
+  
+  .step-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .step-number {
+    width: 60px;
+    height: 60px;
+    font-size: 1.2rem;
+  }
+  
+  .step-info h2 {
+    font-size: 2rem;
+  }
+  
+  .date-selection-grid,
+  .time-selection-grid,
+  .seat-grade-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .final-booking-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .booking-step {
+    padding: 3rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content {
+    padding: 0 1rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .start-booking-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .date-card,
+  .time-card,
+  .seat-grade-card {
+    padding: 1.5rem;
+  }
+  
+  .final-booking-btn {
+    font-size: 1rem;
+    padding: 1.2rem 1.5rem;
+  }
+}

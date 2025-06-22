@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../Header';
-import '../../styles/Notice.css';
-import textLogoSvg from '../../assets/icons/text-logo.svg';
+import SmoothScroll from '../SmoothScroll';
 
 interface NoticeItem {
   id: number;
@@ -48,118 +47,450 @@ export default function Notice() {
       title: "클래식 콘서트 선공개",
       date: "2025.05.16",
       category: "공연안내",
-      content: "오는 7월에 열릴 세종 클래식 시리즈의 라인업을 미리 공개합니다. 세계적인 연주자들과 함께하는 특별한 무대를 기대해 주세요. 시즌 티켓 예매는 6월 1일부터 시작됩니다.",
+      content: "다가오는 세종 클래식 콘서트의 연주곡목이 공개되었습니다. 베토벤 교향곡 9번 '합창'을 비롯하여 모차르트의 명곡들로 구성된 프로그램을 만나보실 수 있습니다. 티켓 예매는 5월 20일부터 시작됩니다.",
       isImportant: false
     },
     {
       id: 5,
-      title: "여름 프로그램 안내",
-      date: "2025.05.03",
-      category: "공연안내",
-      content: "무더운 여름을 시원하게 만들어 줄 다양한 공연들이 준비되어 있습니다. 가족 뮤지컬부터 청춘 콘서트까지, 모든 연령대가 즐길 수 있는 풍성한 프로그램으로 여러분을 찾아갑니다.",
+      title: "세종문화회관 창립 50주년 기념 특별전",
+      date: "2025.04.28",
+      category: "전시안내",
+      content: "세종문화회관 창립 50주년을 맞이하여 특별 기획전시를 개최합니다. 지난 50년간의 발자취와 함께 미래 비전을 담은 의미 있는 전시입니다. 관람료는 무료이며, 6월 30일까지 진행됩니다.",
       isImportant: false
     },
     {
       id: 6,
-      title: "주차장 운영시간 변경 안내",
-      date: "2025.04.28",
+      title: "주차장 이용 안내",
+      date: "2025.04.20",
       category: "시설안내",
-      content: "5월 1일부터 세종문화회관 지하주차장 운영시간이 변경됩니다. 평일 오전 7시부터 밤 11시까지, 주말 및 공휴일은 오전 8시부터 밤 10시까지 운영됩니다. 이용에 참고 부탁드립니다.",
+      content: "공연 관람객들의 편의를 위해 주차장 운영 시간이 연장됩니다. 평일 오후 10시, 주말 오후 11시까지 이용 가능하며, 공연 관람객에게는 2시간 무료 주차 혜택을 제공합니다.",
       isImportant: false
     },
     {
       id: 7,
-      title: "청소년 문화교실 수강생 모집",
-      date: "2025.04.25",
-      category: "참여모집",
-      content: "방학을 맞은 청소년들을 위한 특별 문화교실을 개설합니다. 연극, 음악, 미술 등 다양한 분야의 전문가들과 함께 창작 활동을 경험해보세요. 모집 기간은 5월 31일까지입니다.",
+      title: "온라인 예매 시스템 점검 안내",
+      date: "2025.04.15",
+      category: "시스템공지",
+      content: "더 나은 서비스 제공을 위해 온라인 예매 시스템 정기 점검을 실시합니다. 점검 시간: 매주 화요일 오전 2시~6시. 점검 시간 중에는 온라인 예매가 일시 중단되니 양해 부탁드립니다.",
       isImportant: false
     },
     {
       id: 8,
-      title: "세종문화회관 모바일 앱 출시",
-      date: "2025.04.20",
-      category: "서비스",
-      content: "더욱 편리한 예매와 정보 확인을 위한 세종문화회관 공식 모바일 앱이 출시되었습니다. 앱스토어와 플레이스토어에서 다운로드 받으실 수 있으며, 앱 전용 할인 혜택도 제공됩니다.",
+      title: "청소년 문화교실 수강생 모집",
+      date: "2025.04.10",
+      category: "참여모집",
+      content: "청소년들을 위한 다양한 문화예술 교육 프로그램을 준비했습니다. 연극, 음악, 미술 등 다양한 분야의 전문 강사진과 함께하는 특별한 시간을 만들어보세요. 신청은 홈페이지에서 가능합니다.",
+      isImportant: false
+    },
+    {
+      id: 9,
+      title: "신규 회원 혜택 안내",
+      date: "2025.04.05",
+      category: "이벤트",
+      content: "새로 가입하시는 회원분들께 특별한 혜택을 드립니다! 가입 시 5,000원 상당의 포인트 지급, 첫 공연 예매 시 10% 할인 쿠폰, 생일 기념 특별 할인 혜택까지! 지금 바로 회원가입하세요.",
+      isImportant: false
+    },
+    {
+      id: 10,
+      title: "카페테리아 메뉴 추가 안내",
+      date: "2025.03.30",
+      category: "시설안내",
+      content: "1층 카페테리아에 새로운 메뉴가 추가되었습니다. 건강한 샐러드부터 따뜻한 수제 디저트까지, 공연 관람 전후 여유로운 시간을 즐기실 수 있는 다양한 메뉴를 준비했습니다.",
       isImportant: false
     }
   ];
 
-  const categories = ['전체', '시설안내', '이벤트', '참여모집', '공연안내', '서비스'];
+  const categories = ['전체', '공연안내', '전시안내', '시설안내', '이벤트', '참여모집', '시스템공지'];
 
   const filteredNotices = selectedCategory === '전체' 
     ? noticeData 
     : noticeData.filter(notice => notice.category === selectedCategory);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6 }
+    }
+  };
 
   return (
-    <>
+    <SmoothScroll>
       <Header />
-      <div className="notice-page">
-        <div className="page-container">
-        {/* 헤더 섹션 */}
-        <div className="notice-header">
-          <div className="header-content">
-            <img src={textLogoSvg} alt="세종문화회관 글씨 로고" className="notice-logo" />
-            <div className="header-text">
-              <h1>이벤트&소식</h1>
-              <p>세종문화회관의 다양한 소식과 이벤트를 확인하세요</p>
+      <motion.div
+        style={{
+          background: '#ffffff',
+          minHeight: '100vh',
+          paddingTop: '6rem'
+        }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 2rem'
+        }}>
+          {/* 페이지 헤더 */}
+          <motion.div
+            style={{
+              background: '#000000',
+              color: '#ffffff',
+              padding: '4rem 2rem',
+              textAlign: 'center',
+              marginBottom: '4rem'
+            }}
+            variants={itemVariants}
+          >
+            <h1 style={{
+              fontSize: '3rem',
+              fontWeight: '700',
+              margin: '0 0 1rem 0',
+              textTransform: 'uppercase',
+              letterSpacing: '3px'
+            }}>이벤트 & 소식</h1>
+            <p style={{
+              fontSize: '1.3rem',
+              margin: '0',
+              color: '#cccccc'
+            }}>세종문화회관의 최신 이벤트와 소식을 만나보세요</p>
+          </motion.div>
+
+          {/* 카테고리 필터 */}
+          <motion.div
+            style={{
+              marginBottom: '4rem'
+            }}
+            variants={itemVariants}
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '2rem'
+            }}>
+              <div style={{
+                flex: 1,
+                height: '2px',
+                background: '#000000'
+              }}></div>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                margin: '0 2rem',
+                textTransform: 'uppercase',
+                letterSpacing: '2px',
+                color: '#000000'
+              }}>카테고리</h3>
+              <div style={{
+                flex: 1,
+                height: '2px',
+                background: '#000000'
+              }}></div>
             </div>
-          </div>
-        </div>
+            <div style={{
+              display: 'flex',
+              gap: '1rem',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}>
+              {categories.map((category, index) => (
+                <motion.button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  style={{
+                    background: selectedCategory === category ? '#000000' : 'transparent',
+                    color: selectedCategory === category ? '#ffffff' : '#000000',
+                    border: '2px solid #000000',
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    backgroundColor: selectedCategory === category ? '#333333' : '#f0f0f0'
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  {category}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
 
-        {/* 카테고리 필터 */}
-        <div className="category-filter">
-          {categories.map(category => (
-            <button 
-              key={category}
-              className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+          {/* 공지사항 목록 */}
+          <motion.div
+            style={{
+              marginBottom: '4rem'
+            }}
+            variants={itemVariants}
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '3rem'
+            }}>
+              <div style={{
+                flex: 1,
+                height: '2px',
+                background: '#000000'
+              }}></div>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                margin: '0 2rem',
+                textTransform: 'uppercase',
+                letterSpacing: '2px',
+                color: '#000000'
+              }}>
+                {selectedCategory === '전체' ? '전체 이벤트 & 소식' : `${selectedCategory} 소식`}
+              </h3>
+              <div style={{
+                flex: 1,
+                height: '2px',
+                background: '#000000'
+              }}></div>
+            </div>
 
-        {/* 공지사항 목록 */}
-        <div className="notice-list">
-          {filteredNotices.map((notice, index) => (
-            <Link 
-              key={notice.id}
-              to={`/notice-detail?id=${notice.id}`}
-              className="notice-item-link"
-            >
-              <motion.div 
-                className={`notice-item ${notice.isImportant ? 'important' : ''}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="notice-summary">
-                  <div className="notice-main">
-                    <div className="notice-title-section">
-                      {notice.isImportant && <span className="important-badge">중요</span>}
-                      <span className="category-tag">{notice.category}</span>
-                      <h3 className="notice-title">{notice.title}</h3>
-                    </div>
-                    <span className="notice-date">{notice.date}</span>
-                  </div>
-                  <div className="expand-icon">
-                    <svg 
-                      viewBox="0 0 24 24" 
-                      fill="none"
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+              gap: '2rem'
+            }}>
+              {filteredNotices.map((notice, index) => (
+                <motion.div
+                  key={notice.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <Link
+                    to={`/customerservice/notice/detail?id=${notice.id}`}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'block'
+                    }}
+                  >
+                    <motion.div 
+                      style={{
+                        border: '2px solid #e0e0e0',
+                        padding: '2rem',
+                        height: '100%',
+                        cursor: 'pointer',
+                        background: '#ffffff'
+                      }}
+                      whileHover={{
+                        borderColor: '#000000',
+                        scale: 1.02,
+                        boxShadow: '0 5px 15px rgba(0,0,0,0.1)'
+                      }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                </div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '1rem',
+                        marginBottom: '1.5rem'
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                          {notice.isImportant && (
+                            <span style={{
+                              background: '#000000',
+                              color: '#ffffff',
+                              padding: '0.4rem 0.8rem',
+                              fontSize: '0.7rem',
+                              fontWeight: '700',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px'
+                            }}>
+                              HOT
+                            </span>
+                          )}
+                          <span style={{
+                            background: '#f0f0f0',
+                            color: '#000000',
+                            padding: '0.4rem 0.8rem',
+                            fontSize: '0.7rem',
+                            fontWeight: '600',
+                            textTransform: 'uppercase',
+                            letterSpacing: '1px'
+                          }}>
+                            {notice.category}
+                          </span>
+                        </div>
+                        <span style={{
+                          color: '#999999',
+                          fontSize: '0.8rem',
+                          fontWeight: '500',
+                          marginLeft: 'auto'
+                        }}>
+                          {notice.date}
+                        </span>
+                      </div>
+
+                      <h4 style={{
+                        fontSize: '1.4rem',
+                        fontWeight: '700',
+                        margin: '0 0 1rem 0',
+                        color: '#000000',
+                        lineHeight: '1.3'
+                      }}>
+                        {notice.title}
+                      </h4>
+
+                      <p style={{
+                        color: '#666666',
+                        lineHeight: '1.6',
+                        margin: '0 0 1.5rem 0',
+                        fontSize: '1rem'
+                      }}>
+                        {notice.content.length > 120 
+                          ? `${notice.content.substring(0, 120)}...` 
+                          : notice.content}
+                      </p>
+
+                      <div style={{
+                        borderTop: '1px solid #e0e0e0',
+                        paddingTop: '1rem',
+                        textAlign: 'right'
+                      }}>
+                        <span style={{
+                          color: '#000000',
+                          fontSize: '0.9rem',
+                          fontWeight: '600',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px'
+                        }}>
+                          자세히 보기 →
+                        </span>
+                      </div>
+                    </motion.div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 문의 섹션 */}
+          <motion.div
+            style={{
+              marginBottom: '4rem'
+            }}
+            variants={itemVariants}
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '3rem'
+            }}>
+              <div style={{
+                flex: 1,
+                height: '2px',
+                background: '#000000'
+              }}></div>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                margin: '0 2rem',
+                textTransform: 'uppercase',
+                letterSpacing: '2px',
+                color: '#000000'
+              }}>문의사항</h3>
+              <div style={{
+                flex: 1,
+                height: '2px',
+                background: '#000000'
+              }}></div>
+            </div>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '2rem'
+            }}>
+              <motion.div
+                style={{
+                  background: '#ffffff',
+                  border: '2px solid #000000',
+                  padding: '2rem',
+                  textAlign: 'center'
+                }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📞</div>
+                <h4 style={{
+                  fontSize: '1.2rem',
+                  fontWeight: '700',
+                  margin: '0 0 1rem 0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>전화 문의</h4>
+                <p style={{
+                  fontSize: '1.3rem',
+                  fontWeight: '700',
+                  margin: '0 0 0.5rem 0',
+                  color: '#000000'
+                }}>02-399-1000</p>
+                <p style={{
+                  color: '#666666',
+                  margin: '0',
+                  fontSize: '1rem'
+                }}>평일 09:00 - 18:00</p>
               </motion.div>
-            </Link>
-          ))}
+
+              <motion.div
+                style={{
+                  background: '#ffffff',
+                  border: '2px solid #000000',
+                  padding: '2rem',
+                  textAlign: 'center'
+                }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✉️</div>
+                <h4 style={{
+                  fontSize: '1.2rem',
+                  fontWeight: '700',
+                  margin: '0 0 1rem 0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>이메일 문의</h4>
+                <p style={{
+                  fontSize: '1.3rem',
+                  fontWeight: '600',
+                  margin: '0 0 0.5rem 0',
+                  color: '#000000'
+                }}>info@sejongpac.or.kr</p>
+                <p style={{
+                  color: '#666666',
+                  margin: '0',
+                  fontSize: '1rem'
+                }}>24시간 접수 가능</p>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
-        </div>
-      </div>
-    </>
+      </motion.div>
+    </SmoothScroll>
   );
 }

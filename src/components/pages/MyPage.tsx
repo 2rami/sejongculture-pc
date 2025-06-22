@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header';
-import '../../styles/MyPage.css';
 import imageSrc4 from '../../assets/images/image-4.jpeg';
 import imageSrc6 from '../../assets/images/image-6.jpeg';
 import imageSrc7 from '../../assets/images/image-7.jpeg';
@@ -49,13 +48,6 @@ export default function MyPage() {
     { name: '봄 시즌 특별 할인', discount: '15%', expiry: '2025-05-31' }
   ];
 
-  // 최근 포인트 내역 (최대 3개)
-  const recentPoints = [
-    { date: '2025-05-01', description: '동양미래특급 예매', points: '+3,600', type: 'earned' },
-    { date: '2025-04-25', description: '봄의 전설 할인 사용', points: '-5,000', type: 'used' },
-    { date: '2025-04-20', description: '봄의 전설 예매', points: '+1,300', type: 'earned' }
-  ];
-
   const getStatusText = (status: string) => {
     switch (status) {
       case 'confirmed': return '예매 확정';
@@ -68,59 +60,239 @@ export default function MyPage() {
   return (
     <>
       <Header />
-      <div className="mypage">
-        <div className="page-container">
-          <div className="mypage-header">
-            <h1>마이페이지</h1>
-            <p>안녕하세요, {profileData.name}님</p>
+      <div style={{
+        background: '#ffffff',
+        minHeight: '100vh',
+        paddingTop: '6rem'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 2rem'
+        }}>
+          {/* 페이지 헤더 */}
+          <div style={{
+            background: '#000000',
+            color: '#ffffff',
+            padding: '3rem 2rem',
+            textAlign: 'center',
+            marginBottom: '3rem'
+          }}>
+            <h1 style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              margin: '0 0 1rem 0',
+              textTransform: 'uppercase',
+              letterSpacing: '2px'
+            }}>마이페이지</h1>
+            <p style={{
+              fontSize: '1.2rem',
+              margin: '0',
+              color: '#cccccc'
+            }}>안녕하세요, {profileData.name}님</p>
           </div>
 
           {/* 개인정보 요약 */}
-          <div className="profile-summary">
-            <div className="profile-info">
-              <h3>내 정보</h3>
-              <div className="info-grid">
-                <div className="info-item">
-                  <span className="label">이름</span>
-                  <span className="value">{profileData.name}</span>
+          <div style={{
+            background: '#ffffff',
+            border: '2px solid #000000',
+            marginBottom: '3rem'
+          }}>
+            <div style={{
+              background: '#000000',
+              color: '#ffffff',
+              padding: '1.5rem 2rem'
+            }}>
+              <h3 style={{
+                fontSize: '1.2rem',
+                fontWeight: '700',
+                margin: '0',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+              }}>내 정보</h3>
+            </div>
+            <div style={{ padding: '2rem' }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '2rem',
+                marginBottom: '2rem'
+              }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    color: '#999999',
+                    fontSize: '0.9rem',
+                    marginBottom: '0.5rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}>이름</div>
+                  <div style={{
+                    fontSize: '1.1rem',
+                    fontWeight: '600',
+                    color: '#000000'
+                  }}>{profileData.name}</div>
                 </div>
-                <div className="info-item">
-                  <span className="label">이메일</span>
-                  <span className="value">{profileData.email}</span>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    color: '#999999',
+                    fontSize: '0.9rem',
+                    marginBottom: '0.5rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}>이메일</div>
+                  <div style={{
+                    fontSize: '1.1rem',
+                    fontWeight: '600',
+                    color: '#000000'
+                  }}>{profileData.email}</div>
                 </div>
-                <div className="info-item">
-                  <span className="label">휴대폰</span>
-                  <span className="value">{profileData.phone}</span>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    color: '#999999',
+                    fontSize: '0.9rem',
+                    marginBottom: '0.5rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}>휴대폰</div>
+                  <div style={{
+                    fontSize: '1.1rem',
+                    fontWeight: '600',
+                    color: '#000000'
+                  }}>{profileData.phone}</div>
                 </div>
               </div>
-              <Link to="/mypage/profile" className="detail-link">정보 수정하기 →</Link>
+              <div style={{ textAlign: 'center' }}>
+                <Link 
+                  to="/mypage/profile" 
+                  style={{
+                    background: '#000000',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    display: 'inline-block'
+                  }}
+                >
+                  정보 수정하기
+                </Link>
+              </div>
             </div>
           </div>
 
           {/* 예매 내역 섹션 */}
-          <div className="section">
-            <div className="section-header">
-              <h2>최근 예매 내역</h2>
-              <Link to="/mypage/booking-history" className="more-link">전체보기 →</Link>
+          <div style={{
+            background: '#ffffff',
+            border: '2px solid #000000',
+            marginBottom: '3rem'
+          }}>
+            <div style={{
+              background: '#000000',
+              color: '#ffffff',
+              padding: '1.5rem 2rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <h3 style={{
+                fontSize: '1.2rem',
+                fontWeight: '700',
+                margin: '0',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+              }}>최근 예매 내역</h3>
+              <Link 
+                to="/mypage/booking-history" 
+                style={{
+                  color: '#cccccc',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}
+              >
+                전체보기 →
+              </Link>
             </div>
-            <div className="booking-list">
+            <div style={{ padding: '2rem' }}>
               {recentBookings.map((booking) => (
-                <div key={booking.id} className="booking-item">
-                  <div className="booking-image">
-                    <img src={booking.image} alt={booking.title} />
+                <div key={booking.id} style={{
+                  display: 'grid',
+                  gridTemplateColumns: '100px 1fr auto',
+                  gap: '2rem',
+                  alignItems: 'center',
+                  padding: '1.5rem 0',
+                  borderBottom: booking.id !== recentBookings[recentBookings.length - 1].id ? '1px solid #e0e0e0' : 'none'
+                }}>
+                  <div>
+                    <img 
+                      src={booking.image} 
+                      alt={booking.title}
+                      style={{
+                        width: '100px',
+                        height: '100px',
+                        objectFit: 'cover'
+                      }}
+                    />
                   </div>
-                  <div className="booking-info">
-                    <h4>{booking.title}</h4>
-                    <p>{booking.date} | {booking.venue}</p>
-                    <span className={`status ${booking.status}`}>
+                  <div>
+                    <h4 style={{
+                      fontSize: '1.2rem',
+                      fontWeight: '600',
+                      margin: '0 0 0.5rem 0',
+                      color: '#000000'
+                    }}>{booking.title}</h4>
+                    <p style={{
+                      color: '#666666',
+                      margin: '0 0 0.5rem 0',
+                      fontSize: '1rem'
+                    }}>{booking.date} | {booking.venue}</p>
+                    <span style={{
+                      background: '#f0f0f0',
+                      color: '#000000',
+                      padding: '0.5rem 1rem',
+                      fontSize: '0.8rem',
+                      fontWeight: '600',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px'
+                    }}>
                       {getStatusText(booking.status)}
                     </span>
                   </div>
-                  <div className="booking-actions">
-                    <Link to={`/mypage/booking-detail?id=${booking.id}`} className="detail-btn">
+                  <div style={{ display: 'flex', gap: '1rem' }}>
+                    <Link 
+                      to={`/mypage/booking-detail?id=${booking.id}`}
+                      style={{
+                        background: '#ffffff',
+                        color: '#000000',
+                        border: '2px solid #000000',
+                        padding: '0.8rem 1.5rem',
+                        textDecoration: 'none',
+                        fontSize: '0.9rem',
+                        fontWeight: '600',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                      }}
+                    >
                       상세보기
                     </Link>
-                    <Link to={`/mypage/mobile-ticket?id=${booking.id}`} className="ticket-btn">
+                    <Link 
+                      to={`/mypage/mobile-ticket?id=${booking.id}`}
+                      style={{
+                        background: '#000000',
+                        color: '#ffffff',
+                        border: '2px solid #000000',
+                        padding: '0.8rem 1.5rem',
+                        textDecoration: 'none',
+                        fontSize: '0.9rem',
+                        fontWeight: '600',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                      }}
+                    >
                       모바일 티켓
                     </Link>
                   </div>
@@ -129,88 +301,229 @@ export default function MyPage() {
             </div>
           </div>
 
-          {/* 포인트 & 쿠폰 통합 섹션 */}
-          <div className="section">
-            <div className="section-header">
-              <h2>포인트 & 혜택</h2>
-              <div className="section-links">
-                <Link to="/mypage/points" className="more-link">포인트 내역 →</Link>
-                <Link to="/mypage/coupons" className="more-link">쿠폰 관리 →</Link>
+          {/* 포인트 & 쿠폰 섹션 */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '2rem',
+            marginBottom: '3rem'
+          }}>
+            {/* 포인트 카드 */}
+            <div style={{
+              background: '#ffffff',
+              border: '2px solid #000000'
+            }}>
+              <div style={{
+                background: '#000000',
+                color: '#ffffff',
+                padding: '1.5rem 2rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}>
+                <h3 style={{
+                  fontSize: '1.2rem',
+                  fontWeight: '700',
+                  margin: '0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>포인트</h3>
+                <Link 
+                  to="/mypage/points" 
+                  style={{
+                    color: '#cccccc',
+                    textDecoration: 'none',
+                    fontSize: '0.8rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}
+                >
+                  내역 →
+                </Link>
+              </div>
+              <div style={{ padding: '2rem', textAlign: 'center' }}>
+                <div style={{
+                  fontSize: '2.5rem',
+                  fontWeight: '700',
+                  color: '#000000',
+                  marginBottom: '1rem'
+                }}>
+                  {profileData.points.toLocaleString()}P
+                </div>
+                <div style={{
+                  color: '#666666',
+                  fontSize: '0.9rem'
+                }}>
+                  만료 예정: {profileData.expiringPoints.toLocaleString()}P
+                </div>
               </div>
             </div>
-            <div className="benefits-grid">
-              <div className="benefit-card points-card">
-                <div className="benefit-header">
-                  <span className="benefit-title">포인트</span>
-                  <span className="benefit-subtitle">보유 중인 포인트</span>
+
+            {/* 쿠폰 카드 */}
+            <div style={{
+              background: '#ffffff',
+              border: '2px solid #000000'
+            }}>
+              <div style={{
+                background: '#000000',
+                color: '#ffffff',
+                padding: '1.5rem 2rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}>
+                <h3 style={{
+                  fontSize: '1.2rem',
+                  fontWeight: '700',
+                  margin: '0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>쿠폰</h3>
+                <Link 
+                  to="/mypage/coupons" 
+                  style={{
+                    color: '#cccccc',
+                    textDecoration: 'none',
+                    fontSize: '0.8rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}
+                >
+                  관리 →
+                </Link>
+              </div>
+              <div style={{ padding: '2rem', textAlign: 'center' }}>
+                <div style={{
+                  fontSize: '2.5rem',
+                  fontWeight: '700',
+                  color: '#000000',
+                  marginBottom: '1rem'
+                }}>
+                  {availableCoupons.length}장
                 </div>
-                <div className="benefit-content">
-                  <div className="points-value">{profileData.points.toLocaleString()}P</div>
-                  <div className="points-sub-info">
-                    <span className="expiring-text">{profileData.expiringPoints.toLocaleString()}P 소멸 예정</span>
-                  </div>
+                <div style={{
+                  color: '#666666',
+                  fontSize: '0.9rem'
+                }}>
+                  사용 가능한 쿠폰
                 </div>
               </div>
-              
-              {availableCoupons.map((coupon, index) => (
-                <div key={index} className="benefit-card coupon-card">
-                  <div className="benefit-header">
-                    <span className="benefit-title">쿠폰</span>
-                    <span className="benefit-subtitle">{coupon.discount} 할인</span>
-                  </div>
-                  <div className="benefit-content">
-                    <div className="coupon-name">{coupon.name}</div>
-                    <div className="coupon-expiry">유효기간: {coupon.expiry}</div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
-          {/* 포인트 내역 섹션 */}
-          <div className="section">
-            <div className="section-header">
-              <h2>최근 포인트 내역</h2>
-              <Link to="/mypage/points" className="more-link">전체보기 →</Link>
+          {/* 바로가기 섹션 */}
+          <div style={{
+            background: '#ffffff',
+            border: '2px solid #000000',
+            marginBottom: '3rem'
+          }}>
+            <div style={{
+              background: '#000000',
+              color: '#ffffff',
+              padding: '1.5rem 2rem'
+            }}>
+              <h3 style={{
+                fontSize: '1.2rem',
+                fontWeight: '700',
+                margin: '0',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+              }}>바로가기</h3>
             </div>
-            <div className="points-list">
-              {recentPoints.map((point, index) => (
-                <div key={index} className="point-item">
-                  <div className="point-info">
-                    <h4>{point.description}</h4>
-                    <p>{point.date}</p>
-                  </div>
-                  <div className={`point-amount ${point.type}`}>
-                    {point.points}P
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 고객센터 섹션 */}
-          <div className="section">
-            <div className="section-header">
-              <h2>고객센터</h2>
-              <Link to="/mypage/customer-service" className="more-link">문의하기 →</Link>
-            </div>
-            <div className="customer-service-info">
-              <div className="contact-item">
-                <div className="contact-icon">📞</div>
-                <div className="contact-details">
-                  <h4>전화 문의</h4>
-                  <p>02-399-1000</p>
-                  <span>평일 09:00 - 18:00</span>
-                </div>
-              </div>
-              <div className="contact-item">
-                <div className="contact-icon">✉️</div>
-                <div className="contact-details">
-                  <h4>이메일 문의</h4>
-                  <p>customer@sejongpac.or.kr</p>
-                  <span>24시간 접수 가능</span>
-                </div>
-              </div>
+            <div style={{
+              padding: '2rem',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '2rem'
+            }}>
+              <Link 
+                to="/customerservice" 
+                style={{
+                  background: '#f8f8f8',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  color: '#000000',
+                  border: '1px solid #e0e0e0'
+                }}
+              >
+                <div style={{
+                  fontSize: '2rem',
+                  marginBottom: '1rem'
+                }}>📞</div>
+                <span style={{
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>고객센터</span>
+              </Link>
+              <Link 
+                to="/customerservice/notice" 
+                style={{
+                  background: '#f8f8f8',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  color: '#000000',
+                  border: '1px solid #e0e0e0'
+                }}
+              >
+                <div style={{
+                  fontSize: '2rem',
+                  marginBottom: '1rem'
+                }}>📢</div>
+                <span style={{
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>공지사항</span>
+              </Link>
+              <Link 
+                to="/performances" 
+                style={{
+                  background: '#f8f8f8',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  color: '#000000',
+                  border: '1px solid #e0e0e0'
+                }}
+              >
+                <div style={{
+                  fontSize: '2rem',
+                  marginBottom: '1rem'
+                }}>🎭</div>
+                <span style={{
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>공연예매</span>
+              </Link>
+              <Link 
+                to="/mypage/profile" 
+                style={{
+                  background: '#f8f8f8',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  color: '#000000',
+                  border: '1px solid #e0e0e0'
+                }}
+              >
+                <div style={{
+                  fontSize: '2rem',
+                  marginBottom: '1rem'
+                }}>⚙️</div>
+                <span style={{
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>설정</span>
+              </Link>
             </div>
           </div>
         </div>

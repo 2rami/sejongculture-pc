@@ -5,7 +5,6 @@ import PerformanceList from './components/pages/PerformanceList';
 import PerformanceInfo from './components/pages/PerformanceInfo';
 import Notice from './components/pages/Notice';
 import NoticeDetail from './components/pages/NoticeDetail';
-import BookingSelect from './components/pages/BookingSelect';
 import Booking from './components/pages/Booking';
 import MyPage from './components/pages/MyPage';
 import BookingHistory from './components/pages/BookingHistory';
@@ -44,12 +43,15 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/performances" element={<PerformanceList />} />
           <Route path="/performance-list" element={<PerformanceList />} />
           <Route path="/performance-info" element={<PerformanceInfo />} />
+          <Route path="/customerservice/notice" element={<Notice />} />
+          <Route path="/customerservice/notice/detail" element={<NoticeDetail />} />
           <Route path="/notice" element={<Notice />} />
           <Route path="/notice-detail" element={<NoticeDetail />} />
-          <Route path="/booking-select" element={<BookingSelect />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/customerservice" element={<CustomerService />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage/booking-history" element={<BookingHistory />} />
           <Route path="/mypage/booking-detail" element={<BookingDetail />} />

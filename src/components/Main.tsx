@@ -55,7 +55,7 @@ export default function Main() {
     '프로그램': ['공연/전시', '공연 정보', '예매'],
     '캘린더': ['전시/공연 일정'],
     '랭킹': ['장르별'],
-    '이벤트&소식': ['공지사항'],
+    '이벤트&소식': ['이벤트&소식'],
     '기관소개': ['기관개요']
   };
 
@@ -614,8 +614,8 @@ export default function Main() {
                       const getLink = (item: string) => {
                         if (item === '공연/전시') return '/performance-list';
                         if (item === '공연 정보') return '/performance-info';
-                        if (item === '예매') return '/booking-select';
-                        if (item === '공지사항') return '/notice';
+                        if (item === '예매') return '/booking';
+                        if (item === '이벤트&소식') return '/notice';
                         return '#';
                       };
 

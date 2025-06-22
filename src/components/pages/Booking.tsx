@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../Header';
-import '../../styles/Booking.css';
+import '../../styles/ModernBooking.css';
 
 
 // main 이미지들 import (홈에서 사용하는 이미지들)
@@ -37,6 +38,8 @@ export default function Booking() {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedSeat, setSelectedSeat] = useState('');
+  const [selectedSeatGrade, setSeatGrade] = useState('');
+  const [selectedSeatNumber, setSelectedSeatNumber] = useState('');
   const [ticketCount, setTicketCount] = useState(1);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   
@@ -76,9 +79,15 @@ export default function Booking() {
     if (selectedSeats.includes(seatId)) {
       setSelectedSeats(selectedSeats.filter(id => id !== seatId));
     } else if (selectedSeats.length < ticketCount) {
-      setSelectedSeats([...selectedSeats, seatId]);
+      const newSelectedSeats = [...selectedSeats, seatId];
+      setSelectedSeats(newSelectedSeats);
       if (!selectedSeat) {
         setSelectedSeat(seatType);
+      }
+      
+      // 선택된 좌석이 충분하면 다음 단계로 이동
+      if (newSelectedSeats.length >= ticketCount) {
+        scrollToSection('ticket-section', 500);
       }
     }
   };
@@ -524,187 +533,579 @@ export default function Booking() {
     }
   };
 
+  // 강화된 스크롤 자동 이동 함수
+  const scrollToSection = (sectionId: string, delay: number = 100) => {
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerHeight = 80; // 헤더 높이
+        const elementPosition = element.offsetTop - headerHeight;
+        
+        window.scrollTo({
+          top: elementPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, delay);
+  };
+
+  // 날짜 선택 시 자동 스크롤
+  const handleDateChangeWithScroll = (date: string) => {
+    setSelectedDate(date);
+    const availableTimes = timesByDate[date] || currentPerformance.times;
+    setSelectedTime(availableTimes[0] || '');
+    scrollToSection('time-section', 300);
+  };
+
+  // 시간 선택 시 자동 스크롤
+  const handleTimeChangeWithScroll = (time: string) => {
+    setSelectedTime(time);
+    scrollToSection('seat-section', 300);
+  };
+
+  // 좌석 선택 시 자동 스크롤
+  const handleSeatChangeWithScroll = (seat: string) => {
+    setSelectedSeat(seat);
+    scrollToSection('ticket-section', 300);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6 }
+    }
+  };
+
   return (
     <>
       <Header />
-      <div className="booking-page">
-        <div className="page-container">
-        {/* 포스터와 공연 정보 분리 */}
-        <div className="poster-info-section">
-          <div className="poster-container">
+      <div className="modern-booking-page">
+        {/* 히어로 섹션 - 공연 정보 */}
+        <motion.section 
+          className="hero-section" 
+          id="hero-section"
+          variants={itemVariants}
+        >
+          <div className="hero-background">
             <img 
               src={currentPerformance.image} 
               alt={currentPerformance.title}
-              className="performance-poster"
+              className="hero-bg-image"
             />
+            <div className="hero-overlay"></div>
           </div>
-          <div className="performance-info">
-            <h1>{currentPerformance.title}</h1>
-            <p className="subtitle">{currentPerformance.subtitle}</p>
-            <p className="venue">장소: {currentPerformance.venue}</p>
-            <p className="description">{currentPerformance.description}</p>
-          </div>
-        </div>
-
-        <div className="booking-main">
-          {/* 좌석 선택 영역 */}
-          <div className="seat-selection-area">
-            <h2>좌석 선택</h2>
-            
-            {/* 무대 */}
-            <div className="stage">STAGE 무대</div>
-            
-            {/* 좌석맵 */}
-            <div className="seat-map">
-              {renderSeatMap()}
-            </div>
-            
-            {/* 좌석 범례 */}
-            <div className="seat-legend">
-              <div className="legend-item">
-                <div className="legend-color legend-vip"></div>
-                <span>VIP석</span>
+          <div className="hero-content">
+            <div className="performance-badge">LIVE PERFORMANCE</div>
+            <h1 className="hero-title">{currentPerformance.title}</h1>
+            <p className="hero-subtitle">{currentPerformance.subtitle}</p>
+            <div className="performance-details">
+              <div className="detail-item">
+                <span className="detail-label">장소</span>
+                <span className="detail-text">{currentPerformance.venue}</span>
               </div>
-              <div className="legend-item">
-                <div className="legend-color legend-r"></div>
-                <span>R석</span>
+              <div className="detail-item">
+                <span className="detail-label">기간</span>
+                <span className="detail-text">{currentPerformance.dates.length}일 공연</span>
               </div>
-              <div className="legend-item">
-                <div className="legend-color legend-s"></div>
-                <span>S석</span>
-              </div>
-              <div className="legend-item">
-                <div className="legend-color legend-a"></div>
-                <span>A석</span>
-              </div>
-              <div className="legend-item">
-                <div className="legend-color legend-selected"></div>
-                <span>선택됨</span>
-              </div>
-              <div className="legend-item">
-                <div className="legend-color legend-unavailable"></div>
-                <span>선택불가</span>
+              <div className="detail-item">
+                <span className="detail-label">가격</span>
+                <span className="detail-text">{currentPerformance.prices[currentPerformance.prices.length - 1].price.toLocaleString()}원부터</span>
               </div>
             </div>
+            <p className="hero-description">{currentPerformance.description}</p>
+            <button 
+              className="start-booking-btn"
+              onClick={() => scrollToSection('date-section')}
+            >
+              예매 시작하기
+            </button>
           </div>
+        </motion.section>
 
-          {/* 예매 정보 패널 */}
-          <div className="booking-panel">
-            <h2>예매 정보</h2>
-            
-            {/* 날짜 선택 */}
-            <div className="form-section">
-              <h3>공연 날짜</h3>
-              <div className="date-options">
-                {currentPerformance.dates.map(date => (
-                  <button
+        {/* 단계 1: 날짜 선택 */}
+        <motion.section 
+          className="booking-step" 
+          id="date-section"
+          variants={itemVariants}
+        >
+          <div className="step-container">
+            <div className="step-header">
+              <div className="step-number">01</div>
+              <div className="step-info">
+                <h2>공연 날짜 선택</h2>
+                <p>원하는 공연 날짜를 선택해주세요</p>
+              </div>
+            </div>
+            <div className="date-selection-grid">
+              {currentPerformance.dates.map(date => {
+                const dateObj = new Date(date);
+                return (
+                  <div
                     key={date}
-                    className={`option-btn ${selectedDate === date ? 'selected' : ''}`}
-                    onClick={() => handleDateChange(date)}
+                    className={`date-card ${selectedDate === date ? 'selected' : ''}`}
+                    onClick={() => handleDateChangeWithScroll(date)}
                   >
-                    {new Date(date).toLocaleDateString('ko-KR', { 
-                      month: 'short', 
-                      day: 'numeric'
-                    })}
-                  </button>
+                    <div className="date-month">{dateObj.getMonth() + 1}월</div>
+                    <div className="date-day">{dateObj.getDate()}</div>
+                    <div className="date-weekday">
+                      {dateObj.toLocaleDateString('ko-KR', { weekday: 'short' })}
+                    </div>
+                    <div className="date-status">예매가능</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </motion.section>
+
+        {/* 단계 2: 시간 선택 */}
+        {selectedDate && (
+          <section 
+            className="booking-step" 
+            id="time-section"
+            key={`time-${selectedDate}`}
+            style={{ background: '#f0f0f0', padding: '2rem', margin: '2rem 0' }}
+          >
+            <div className="step-container">
+              <div className="step-header">
+                <div className="step-number">02</div>
+                <div className="step-info">
+                  <h2>공연 시간 선택</h2>
+                  <p>{new Date(selectedDate).toLocaleDateString('ko-KR')} 공연 시간</p>
+                </div>
+              </div>
+              <div className="time-selection-grid">
+                {(timesByDate[selectedDate] || currentPerformance.times).map(time => (
+                  <div
+                    key={time}
+                    className={`time-card ${selectedTime === time ? 'selected' : ''}`}
+                    onClick={() => handleTimeChangeWithScroll(time)}
+                  >
+                    <div className="time-main">{time}</div>
+                    <div className="time-info">
+                      <span className="seats-available">잔여석 많음</span>
+                      <span className="time-duration">150분</span>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
+          </section>
+        )}
 
-            {/* 시간 선택 */}
-            <div className="form-section">
-              <h3>공연 시간</h3>
-              <div className="time-options">
-                {(selectedDate ? timesByDate[selectedDate] || currentPerformance.times : currentPerformance.times).map(time => (
-                  <button
-                    key={time}
-                    className={`option-btn ${selectedTime === time ? 'selected' : ''}`}
-                    onClick={() => setSelectedTime(time)}
-                  >
-                    {time}
-                </button>
-              ))}
-            </div>
-          </div>
-
-            
-            {/* 좌석 등급별 가격 */}
-            <div className="seat-prices">
-              <h3>좌석 등급 / 가격</h3>
-              <div className="price-list">
+        {/* 단계 3: 좌석 선택 */}
+        {selectedTime && (
+          <section 
+            className="booking-step seat-step" 
+            id="seat-section"
+          >
+            <div className="step-container">
+              <div className="step-header">
+                <div className="step-number">03</div>
+                <div className="step-info">
+                  <h2>좌석 등급 선택</h2>
+                  <p>원하는 좌석 등급을 선택해주세요</p>
+                </div>
+              </div>
+              
+              {/* 좌석 등급 카드 */}
+              <div className="seat-grade-grid">
                 {currentPerformance.prices.map((priceInfo, index) => (
                   <div
                     key={priceInfo.seat}
-                    className={`price-item ${selectedSeat === priceInfo.seat ? 'selected' : ''}`}
-                    onClick={() => setSelectedSeat(priceInfo.seat)}
+                    className={`seat-grade-card ${selectedSeat === priceInfo.seat ? 'selected' : ''}`}
+                    onClick={() => handleSeatChangeWithScroll(priceInfo.seat)}
                   >
-                    <div className="seat-grade">
-                      <div className={`grade-color grade-${['vip', 'r', 's', 'a'][index] || 'a'}`}></div>
-                      <span>{priceInfo.seat}</span>
+                    <div className={`grade-icon grade-${['vip', 'r', 's', 'a'][index]}`}>
+                      {priceInfo.seat.charAt(0)}
                     </div>
-                    <div className="seat-info">
-                      <div className="seat-price">{priceInfo.price.toLocaleString()}원</div>
-                      <div className="seat-remaining">{135 - (index * 20)}석</div>
+                    <div className="grade-info">
+                      <h3>{priceInfo.seat}</h3>
+                      <p className="grade-price">{priceInfo.price.toLocaleString()}원</p>
+                      <p className="grade-remaining">{135 - (index * 20)}석 남음</p>
+                    </div>
+                    <div className="grade-benefits">
+                      {index === 0 && <span>최고급 시야</span>}
+                      {index === 1 && <span>프리미엄 시야</span>}
+                      {index === 2 && <span>우수한 시야</span>}
+                      {index === 3 && <span>합리적 가격</span>}
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/* 좌석맵 미리보기 */}
+              {/* 좌석맵 */}
+              <div style={{
+                background: '#1a1a1a',
+                padding: '3rem 2rem',
+                marginTop: '2rem',
+                color: '#ffffff'
+              }}>
+                {/* 무대 */}
+                <div style={{
+                  background: '#ffffff',
+                  color: '#000000',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  marginBottom: '3rem',
+                  fontWeight: '600',
+                  fontSize: '1.1rem',
+                  letterSpacing: '2px'
+                }}>STAGE</div>
+
+                {/* 1층 */}
+                <div style={{ marginBottom: '4rem' }}>
+                  <h4 style={{ textAlign: 'center', marginBottom: '2rem', color: '#cccccc', fontSize: '1.2rem' }}>1층</h4>
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+                    {['A', 'B', 'C', 'D', 'E'].map(section => (
+                      <div key={section} style={{ textAlign: 'center' }}>
+                        <div style={{ marginBottom: '1rem', color: '#cccccc', fontWeight: '600' }}>{section}</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: '3px' }}>
+                          {Array.from({length: section === 'C' ? 48 : section === 'B' || section === 'D' ? 40 : 32}, (_, i) => {
+                            const seatNumber = `1층-${section}${i + 1}`;
+                            const isSelected = selectedSeats.includes(seatNumber);
+                            const seatGrade = section === 'C' ? 'VIP석' : section === 'B' || section === 'D' ? 'R석' : 'S석';
+                            const seatColor = seatGrade === 'VIP석' ? '#ff6b6b' : seatGrade === 'R석' ? '#4ecdc4' : '#95e1d3';
+                            
+                            return (
+                              <button
+                                key={seatNumber}
+                                style={{
+                                  width: '20px',
+                                  height: '20px',
+                                  background: isSelected ? '#ffffff' : seatColor,
+                                  border: `1px solid ${isSelected ? '#000000' : 'transparent'}`,
+                                  cursor: 'pointer',
+                                  fontSize: '8px',
+                                  color: isSelected ? '#000000' : '#000000'
+                                }}
+                                onClick={() => handleSeatClick(seatNumber, seatGrade)}
+                              >
+                                {i + 1}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 2층 */}
+                <div style={{ marginBottom: '4rem' }}>
+                  <h4 style={{ textAlign: 'center', marginBottom: '2rem', color: '#cccccc', fontSize: '1.2rem' }}>2층</h4>
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+                    {['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(section => (
+                      <div key={section} style={{ textAlign: 'center' }}>
+                        <div style={{ marginBottom: '1rem', color: '#cccccc', fontWeight: '600' }}>{section}</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '3px' }}>
+                          {Array.from({length: section === 'D' ? 48 : 36}, (_, i) => {
+                            const seatNumber = `2층-${section}${i + 1}`;
+                            const isSelected = selectedSeats.includes(seatNumber);
+                            const seatGrade = section === 'D' ? 'R석' : section === 'C' || section === 'E' ? 'S석' : 'A석';
+                            const seatColor = seatGrade === 'R석' ? '#4ecdc4' : seatGrade === 'S석' ? '#95e1d3' : '#a8e6cf';
+                            
+                            return (
+                              <button
+                                key={seatNumber}
+                                style={{
+                                  width: '18px',
+                                  height: '18px',
+                                  background: isSelected ? '#ffffff' : seatColor,
+                                  border: `1px solid ${isSelected ? '#000000' : 'transparent'}`,
+                                  cursor: 'pointer',
+                                  fontSize: '7px',
+                                  color: isSelected ? '#000000' : '#000000'
+                                }}
+                                onClick={() => handleSeatClick(seatNumber, seatGrade)}
+                              >
+                                {i + 1}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 3층 */}
+                <div>
+                  <h4 style={{ textAlign: 'center', marginBottom: '2rem', color: '#cccccc', fontSize: '1.2rem' }}>3층</h4>
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+                    {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(section => (
+                      <div key={section} style={{ textAlign: 'center' }}>
+                        <div style={{ marginBottom: '1rem', color: '#cccccc', fontWeight: '600' }}>{section}</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '2px' }}>
+                          {Array.from({length: section === 'D' || section === 'E' ? 40 : 30}, (_, i) => {
+                            const seatNumber = `3층-${section}${i + 1}`;
+                            const isSelected = selectedSeats.includes(seatNumber);
+                            const seatGrade = section === 'D' || section === 'E' ? 'S석' : 'A석';
+                            const seatColor = seatGrade === 'S석' ? '#95e1d3' : '#a8e6cf';
+                            
+                            return (
+                              <button
+                                key={seatNumber}
+                                style={{
+                                  width: '16px',
+                                  height: '16px',
+                                  background: isSelected ? '#ffffff' : seatColor,
+                                  border: `1px solid ${isSelected ? '#000000' : 'transparent'}`,
+                                  cursor: 'pointer',
+                                  fontSize: '6px',
+                                  color: isSelected ? '#000000' : '#000000'
+                                }}
+                                onClick={() => handleSeatClick(seatNumber, seatGrade)}
+                              >
+                                {i + 1}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 좌석 범례 */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: '2rem',
+                  marginTop: '3rem',
+                  flexWrap: 'wrap'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ width: '20px', height: '20px', background: '#ff6b6b' }}></div>
+                    <span>VIP석</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ width: '20px', height: '20px', background: '#4ecdc4' }}></div>
+                    <span>R석</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ width: '20px', height: '20px', background: '#95e1d3' }}></div>
+                    <span>S석</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ width: '20px', height: '20px', background: '#a8e6cf' }}></div>
+                    <span>A석</span>
+                  </div>
+                </div>
+
+                {/* 선택된 좌석 표시 */}
+                {selectedSeats.length > 0 && (
+                  <div style={{
+                    marginTop: '2rem',
+                    padding: '1.5rem',
+                    background: '#333333',
+                    textAlign: 'center'
+                  }}>
+                    <h4 style={{ marginBottom: '1rem', color: '#ffffff' }}>선택된 좌석</h4>
+                    <div style={{ color: '#cccccc' }}>
+                      {selectedSeats.join(', ')} ({selectedSeats.length}석)
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
+          </section>
+        )}
 
-            {/* 선택된 좌석 정보 */}
-            {selectedSeat && (
-              <div className="selected-seats">
-                <h3>선택된 좌석</h3>
-                <div className="selected-seat-list">
-                  <div className="selected-seat-item">
-                    <span>{selectedSeat} x {ticketCount}매</span>
-                    <span>{((currentPerformance.prices.find(p => p.seat === selectedSeat)?.price || 0) * ticketCount).toLocaleString()}원</span>
-                  </div>
+        {/* 단계 4: 매수 선택 및 결제 */}
+        {selectedSeat && (
+          <section 
+            className="booking-step final-step" 
+            id="ticket-section"
+          >
+            <div className="step-container">
+              <div className="step-header">
+                <div className="step-number">04</div>
+                <div className="step-info">
+                  <h2>예매 정보 확인</h2>
+                  <p>매수를 선택하고 최종 결제를 진행해주세요</p>
                 </div>
-                
-                {/* 매수 선택 */}
-                <div className="form-section">
-                  <h3>매수 선택</h3>
-                  <div className="ticket-count">
-                    <button 
-                      className="count-btn"
-                      onClick={() => setTicketCount(Math.max(1, ticketCount - 1))}
-                    >
-                      -
-                    </button>
-                    <span className="count">{ticketCount}</span>
-                    <button 
-                      className="count-btn"
-                      onClick={() => setTicketCount(Math.min(4, ticketCount + 1))}
-                    >
-                      +
-                    </button>
+              </div>
+
+              {/* 단일 와이드 레이아웃 */}
+              <div style={{
+                maxWidth: '1000px',
+                margin: '0 auto',
+                background: '#ffffff',
+                border: '2px solid #000000',
+                marginTop: '3rem'
+              }}>
+                {/* 예매 정보 헤더 */}
+                <div style={{
+                  background: '#000000',
+                  color: '#ffffff',
+                  padding: '2rem',
+                  textAlign: 'center'
+                }}>
+                  <h3 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '700',
+                    margin: '0',
+                    textTransform: 'uppercase',
+                    letterSpacing: '2px'
+                  }}>예매 정보 확인</h3>
+                </div>
+
+                {/* 예매 정보 리스트 */}
+                <div style={{padding: '2rem'}}>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: '2rem',
+                    marginBottom: '3rem',
+                    paddingBottom: '2rem',
+                    borderBottom: '2px solid #f0f0f0'
+                  }}>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{color: '#999999', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px'}}>공연</div>
+                      <div style={{fontSize: '1.1rem', fontWeight: '600', color: '#000000'}}>{currentPerformance.title}</div>
+                    </div>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{color: '#999999', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px'}}>날짜</div>
+                      <div style={{fontSize: '1.1rem', fontWeight: '600', color: '#000000'}}>{new Date(selectedDate).toLocaleDateString('ko-KR')}</div>
+                    </div>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{color: '#999999', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px'}}>시간</div>
+                      <div style={{fontSize: '1.1rem', fontWeight: '600', color: '#000000'}}>{selectedTime}</div>
+                    </div>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{color: '#999999', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px'}}>좌석</div>
+                      <div style={{fontSize: '1.1rem', fontWeight: '600', color: '#000000'}}>{selectedSeat}</div>
+                    </div>
+                  </div>
+
+                  {/* 매수 및 결제 */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 2fr',
+                    gap: '3rem',
+                    alignItems: 'start'
+                  }}>
+                    {/* 매수 선택 */}
+                    <div>
+                      <h4 style={{
+                        fontSize: '1.1rem',
+                        fontWeight: '700',
+                        marginBottom: '1.5rem',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                      }}>매수 선택</h4>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '2rem',
+                        marginBottom: '1rem'
+                      }}>
+                        <button 
+                          style={{
+                            width: '50px',
+                            height: '50px',
+                            border: '2px solid #000000',
+                            background: '#ffffff',
+                            fontSize: '1.5rem',
+                            fontWeight: '700',
+                            cursor: 'pointer'
+                          }}
+                          onClick={() => setTicketCount(Math.max(1, ticketCount - 1))}
+                        >-</button>
+                        <div style={{textAlign: 'center'}}>
+                          <div style={{fontSize: '2rem', fontWeight: '700', color: '#000000'}}>{ticketCount}</div>
+                          <div style={{fontSize: '0.9rem', color: '#666666'}}>매</div>
+                        </div>
+                        <button 
+                          style={{
+                            width: '50px',
+                            height: '50px',
+                            border: '2px solid #000000',
+                            background: '#ffffff',
+                            fontSize: '1.5rem',
+                            fontWeight: '700',
+                            cursor: 'pointer'
+                          }}
+                          onClick={() => setTicketCount(Math.min(4, ticketCount + 1))}
+                        >+</button>
+                      </div>
+                      <p style={{textAlign: 'center', color: '#999999', fontSize: '0.9rem'}}>최대 4매까지 선택 가능</p>
+                    </div>
+
+                    {/* 결제 정보 */}
+                    <div>
+                      <h4 style={{
+                        fontSize: '1.1rem',
+                        fontWeight: '700',
+                        marginBottom: '1.5rem',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                      }}>결제 정보</h4>
+                      <div style={{marginBottom: '1.5rem'}}>
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          padding: '1rem 0',
+                          borderBottom: '1px solid #e0e0e0'
+                        }}>
+                          <span>{selectedSeat} x {ticketCount}매</span>
+                          <span style={{fontWeight: '600'}}>{((currentPerformance.prices.find(p => p.seat === selectedSeat)?.price || 0) * ticketCount).toLocaleString()}원</span>
+                        </div>
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          padding: '1rem 0',
+                          fontSize: '0.9rem',
+                          color: '#666666'
+                        }}>
+                          <span>예매수수료</span>
+                          <span>2,000원</span>
+                        </div>
+                      </div>
+                      <div style={{
+                        background: '#000000',
+                        color: '#ffffff',
+                        padding: '1.5rem',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        fontSize: '1.2rem',
+                        fontWeight: '700'
+                      }}>
+                        <span>총 결제금액</span>
+                        <span>{(((currentPerformance.prices.find(p => p.seat === selectedSeat)?.price || 0) * ticketCount) + 2000).toLocaleString()}원</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            )}
 
-            {/* 총 결제 금액 */}
-            {selectedSeat && (
-              <div className="total-section">
-                <h3>총 결제 금액</h3>
-                <div className="total-amount">
-                  {((currentPerformance.prices.find(p => p.seat === selectedSeat)?.price || 0) * ticketCount).toLocaleString()}원
-                </div>
-              </div>
-            )}
+              {/* 최종 예매 버튼 */}
+              <button 
+                className="final-booking-btn"
+                onClick={handleBooking}
+              >
+                {(((currentPerformance.prices.find(p => p.seat === selectedSeat)?.price || 0) * ticketCount) + 2000).toLocaleString()}원 결제하기
+              </button>
+            </div>
+          </section>
+        )}
 
-            {/* 예매 버튼 */}
-            <button 
-              className="booking-submit-btn" 
-              onClick={handleBooking}
-              disabled={!selectedDate || !selectedTime || !selectedSeat}
-            >
-              {selectedDate && selectedTime && selectedSeat ? '예매하기' : '날짜, 시간, 좌석을 선택해주세요'}
-            </button>
-          </div>
-        </div>
-        </div>
       </div>
     </>
   );

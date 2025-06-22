@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../Header';
-import '../../styles/CustomerService.css';
+import SmoothScroll from '../SmoothScroll';
 
 interface FAQ {
   id: string;
@@ -74,141 +75,363 @@ export default function CustomerService() {
     setExpandedFAQ(expandedFAQ === id ? null : id);
   };
 
-  return (
-    <>
-      <Header />
-      <div className="customer-service-page">
-        <div className="page-container">
-          <div className="page-header">
-            <Link to="/mypage" className="back-link">← 마이페이지</Link>
-            <h1>고객센터</h1>
-            <p>궁금한 사항이 있으시면 언제든지 연락주세요</p>
-          </div>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
 
-          <div className="service-tabs">
-            <button 
-              className={`tab-btn ${activeTab === 'contact' ? 'active' : ''}`}
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6 }
+    }
+  };
+
+  return (
+    <SmoothScroll>
+      <Header />
+      <motion.div
+        style={{
+          background: '#ffffff',
+          minHeight: '100vh',
+          paddingTop: '6rem'
+        }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 2rem'
+        }}>
+          <motion.div
+            style={{
+              background: '#000000',
+              color: '#ffffff',
+              padding: '3rem 2rem',
+              textAlign: 'center',
+              marginBottom: '3rem'
+            }}
+            variants={itemVariants}
+          >
+            <Link
+              to="/mypage"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                color: '#cccccc',
+                textDecoration: 'none',
+                fontSize: '1rem',
+                fontWeight: '600',
+                marginBottom: '2rem',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+              }}
+            >
+              ← 마이페이지
+            </Link>
+            <h1 style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              margin: '0 0 1rem 0',
+              textTransform: 'uppercase',
+              letterSpacing: '2px'
+            }}>고객센터</h1>
+            <p style={{
+              fontSize: '1.2rem',
+              margin: '0',
+              color: '#cccccc'
+            }}>궁금한 사항이 있으시면 언제든지 연락주세요</p>
+          </motion.div>
+
+          <motion.div
+            style={{
+              display: 'flex',
+              gap: '1rem',
+              marginBottom: '3rem',
+              justifyContent: 'center'
+            }}
+            variants={itemVariants}
+          >
+            <motion.button
+              style={{
+                background: activeTab === 'contact' ? '#000000' : '#ffffff',
+                color: activeTab === 'contact' ? '#ffffff' : '#000000',
+                border: '2px solid #000000',
+                padding: '1rem 2rem',
+                fontSize: '1rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+              }}
               onClick={() => setActiveTab('contact')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               연락처 안내
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === 'faq' ? 'active' : ''}`}
+            </motion.button>
+            <motion.button
+              style={{
+                background: activeTab === 'faq' ? '#000000' : '#ffffff',
+                color: activeTab === 'faq' ? '#ffffff' : '#000000',
+                border: '2px solid #000000',
+                padding: '1rem 2rem',
+                fontSize: '1rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+              }}
               onClick={() => setActiveTab('faq')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               자주 묻는 질문
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
 
           {activeTab === 'contact' && (
-            <div className="contact-section">
-              <div className="contact-grid">
-                <div className="contact-card">
-                  <div className="contact-icon">📞</div>
-                  <h3>전화 문의</h3>
-                  <p className="contact-value">{contactInfo.phone}</p>
-                  <div className="contact-hours">
-                    <p>{contactInfo.hours.weekday}</p>
-                    <p>{contactInfo.hours.weekend}</p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+                  gap: '2rem',
+                  marginBottom: '3rem'
+                }}
+                variants={containerVariants}
+              >
+                <motion.div
+                  style={{
+                    background: '#ffffff',
+                    border: '2px solid #000000',
+                    padding: '2rem',
+                    textAlign: 'center'
+                  }}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📞</div>
+                  <h3 style={{
+                    fontSize: '1.3rem',
+                    fontWeight: '700',
+                    margin: '0 0 1rem 0',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}>전화 문의</h3>
+                  <p style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '700',
+                    margin: '0 0 1rem 0',
+                    color: '#000000'
+                  }}>{contactInfo.phone}</p>
+                  <div>
+                    <p style={{ margin: '0.5rem 0', color: '#666666' }}>{contactInfo.hours.weekday}</p>
+                    <p style={{ margin: '0.5rem 0', color: '#666666' }}>{contactInfo.hours.weekend}</p>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="contact-card">
-                  <div className="contact-icon">✉️</div>
-                  <h3>이메일 문의</h3>
-                  <p className="contact-value">{contactInfo.email}</p>
-                  <p className="contact-desc">24시간 언제든지 문의하세요</p>
-                </div>
+                <motion.div
+                  style={{
+                    background: '#ffffff',
+                    border: '2px solid #000000',
+                    padding: '2rem',
+                    textAlign: 'center'
+                  }}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✉️</div>
+                  <h3 style={{
+                    fontSize: '1.3rem',
+                    fontWeight: '700',
+                    margin: '0 0 1rem 0',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}>이메일 문의</h3>
+                  <p style={{
+                    fontSize: '1.2rem',
+                    fontWeight: '600',
+                    margin: '0 0 1rem 0',
+                    color: '#000000'
+                  }}>{contactInfo.email}</p>
+                  <p style={{ margin: '0', color: '#666666' }}>24시간 언제든지 문의하세요</p>
+                </motion.div>
 
-                <div className="contact-card full-width">
-                  <div className="contact-icon">📍</div>
-                  <h3>방문 안내</h3>
-                  <p className="contact-value">{contactInfo.address}</p>
-                  <div className="location-info">
-                    <p>• 지하철 1호선, 5호선 종각역 1번 출구</p>
-                    <p>• 지하철 3호선 광화문역 8번 출구</p>
-                    <p>• 버스 1020, 7025, 1711, 109 등</p>
+                <motion.div
+                  style={{
+                    background: '#ffffff',
+                    border: '2px solid #000000',
+                    padding: '2rem',
+                    textAlign: 'center',
+                    gridColumn: '1 / -1'
+                  }}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.01 }}
+                >
+                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📍</div>
+                  <h3 style={{
+                    fontSize: '1.3rem',
+                    fontWeight: '700',
+                    margin: '0 0 1rem 0',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}>방문 안내</h3>
+                  <p style={{
+                    fontSize: '1.2rem',
+                    fontWeight: '600',
+                    margin: '0 0 1.5rem 0',
+                    color: '#000000'
+                  }}>{contactInfo.address}</p>
+                  <div style={{ textAlign: 'left', maxWidth: '400px', margin: '0 auto' }}>
+                    <p style={{ margin: '0.5rem 0', color: '#666666' }}>• 지하철 1호선, 5호선 종각역 1번 출구</p>
+                    <p style={{ margin: '0.5rem 0', color: '#666666' }}>• 지하철 3호선 광화문역 8번 출구</p>
+                    <p style={{ margin: '0.5rem 0', color: '#666666' }}>• 버스 1020, 7025, 1711, 109 등</p>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div className="inquiry-form-section">
-                <h3>온라인 문의</h3>
-                <form className="inquiry-form">
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label>이름</label>
-                      <input type="text" placeholder="이름을 입력하세요" />
-                    </div>
-                    <div className="form-group">
-                      <label>이메일</label>
-                      <input type="email" placeholder="이메일을 입력하세요" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label>문의 유형</label>
-                    <select>
-                      <option>예매/취소 문의</option>
-                      <option>티켓 관련 문의</option>
-                      <option>포인트/쿠폰 문의</option>
-                      <option>할인 혜택 문의</option>
-                      <option>기타 문의</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>제목</label>
-                    <input type="text" placeholder="문의 제목을 입력하세요" />
-                  </div>
-                  <div className="form-group">
-                    <label>내용</label>
-                    <textarea placeholder="문의 내용을 자세히 작성해주세요" rows={6}></textarea>
-                  </div>
-                  <button type="submit" className="submit-btn">문의하기</button>
-                </form>
-              </div>
-            </div>
+            </motion.div>
           )}
 
           {activeTab === 'faq' && (
-            <div className="faq-section">
-              <div className="faq-categories">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.div
+                style={{
+                  display: 'flex',
+                  gap: '1rem',
+                  marginBottom: '2rem',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center'
+                }}
+                variants={itemVariants}
+              >
                 {categories.map((category) => (
-                  <button
+                  <motion.button
                     key={category}
-                    className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+                    style={{
+                      background: selectedCategory === category ? '#000000' : '#ffffff',
+                      color: selectedCategory === category ? '#ffffff' : '#000000',
+                      border: '2px solid #000000',
+                      padding: '0.8rem 1.5rem',
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px'
+                    }}
                     onClick={() => setSelectedCategory(category)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     {category}
-                  </button>
+                  </motion.button>
                 ))}
-              </div>
+              </motion.div>
 
-              <div className="faq-list">
-                {filteredFAQs.map((faq) => (
-                  <div key={faq.id} className="faq-item">
-                    <button
-                      className="faq-question"
+              <div>
+                {filteredFAQs.map((faq, index) => (
+                  <motion.div
+                    key={faq.id}
+                    style={{
+                      background: '#ffffff',
+                      border: '2px solid #000000',
+                      marginBottom: '1rem'
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                  >
+                    <motion.button
+                      style={{
+                        width: '100%',
+                        background: 'none',
+                        border: 'none',
+                        padding: '1.5rem 2rem',
+                        textAlign: 'left',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                      }}
                       onClick={() => toggleFAQ(faq.id)}
+                      whileHover={{ backgroundColor: '#f8f8f8' }}
                     >
-                      <span className="question-mark">Q</span>
-                      <span className="question-text">{faq.question}</span>
-                      <span className={`arrow ${expandedFAQ === faq.id ? 'expanded' : ''}`}>
-                        ▼
-                      </span>
-                    </button>
-                    {expandedFAQ === faq.id && (
-                      <div className="faq-answer">
-                        <span className="answer-mark">A</span>
-                        <p>{faq.answer}</p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <span style={{
+                          background: '#000000',
+                          color: '#ffffff',
+                          width: '30px',
+                          height: '30px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: '700'
+                        }}>Q</span>
+                        <span style={{ fontWeight: '600', fontSize: '1.1rem' }}>{faq.question}</span>
                       </div>
+                      <span style={{
+                        transform: expandedFAQ === faq.id ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.3s ease'
+                      }}>▼</span>
+                    </motion.button>
+                    {expandedFAQ === faq.id && (
+                      <motion.div
+                        style={{
+                          padding: '0 2rem 2rem 2rem',
+                          borderTop: '1px solid #e0e0e0'
+                        }}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', paddingTop: '1rem' }}>
+                          <span style={{
+                            background: '#f0f0f0',
+                            color: '#000000',
+                            width: '30px',
+                            height: '30px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: '700',
+                            flexShrink: 0
+                          }}>A</span>
+                          <p style={{
+                            margin: '0',
+                            lineHeight: '1.6',
+                            color: '#333333'
+                          }}>{faq.answer}</p>
+                        </div>
+                      </motion.div>
                     )}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
-      </div>
-    </>
+      </motion.div>
+    </SmoothScroll>
   );
 }
