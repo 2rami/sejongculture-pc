@@ -654,7 +654,7 @@ export default function Main() {
         )}
       </AnimatePresence>
 
-      {/* <SmoothScroll> */}
+      <SmoothScroll>
         <div className="main-responsive">
       {/* Hero Section with Images */}
       <section className="hero-section">
@@ -1267,7 +1267,7 @@ export default function Main() {
         onClose={() => setIsSearchModalOpen(false)} 
       />
         </div>
-      {/* </SmoothScroll> */}
+      </SmoothScroll>
     </>
   );
 }

@@ -9,19 +9,21 @@ export default function SmoothScroll({
 }) {
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState(0);
+  const [isReady, setIsReady] = useState(false);
 
   // 스크롤 진행률 가져오기
   const { scrollYProgress } = useScroll();
   
-  // 부드러운 스프링 효과 적용
+  // 부드러운 스프링 효과 적용 (준비된 후에만)
   const smoothProgress = useSpring(scrollYProgress, { 
     mass: 0.1,
     stiffness: 100,
     damping: 20
   });
 
-  // Y축 변환 계산
+  // Y축 변환 계산 (준비된 후에만)
   const y = useTransform(smoothProgress, value => {
+    if (!isReady) return 0; // 준비되지 않았으면 원래 위치 유지
     return value * -(contentHeight - window.innerHeight);
   });
 
@@ -45,9 +47,14 @@ export default function SmoothScroll({
     };
   }, [contentRef]);
 
-  // 초기 로드 시에만 스크롤을 맨 위로 설정
+  // Vercel 안전 초기화
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // 페이지 로드 완료 후 SmoothScroll 활성화
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 500); // 0.5초 지연으로 초기 스크롤 문제 방지
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
