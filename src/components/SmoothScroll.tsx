@@ -1,75 +1,41 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import '../styles/SmoothScroll.css';
+import React, { useEffect, useRef } from 'react';
+import Lenis from 'lenis';
 
 export default function SmoothScroll({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState(0);
-  const [isReady, setIsReady] = useState(false);
+  const lenisRef = useRef<Lenis | null>(null);
 
-  // 스크롤 진행률 가져오기
-  const { scrollYProgress } = useScroll();
-  
-  // 부드러운 스프링 효과 적용 (준비된 후에만)
-  const smoothProgress = useSpring(scrollYProgress, { 
-    mass: 0.1,
-    stiffness: 100,
-    damping: 20
-  });
-
-  // Y축 변환 계산 (준비된 후에만)
-  const y = useTransform(smoothProgress, value => {
-    if (!isReady) return 0; // 준비되지 않았으면 원래 위치 유지
-    return value * -(contentHeight - window.innerHeight);
-  });
-
-  // 윈도우 리사이즈 및 컨텐츠 높이 업데이트 핸들러
   useEffect(() => {
-    const handleResize = () => {
-      if (contentRef.current) {
-        setContentHeight(contentRef.current.scrollHeight);
+    // Vercel 안전 초기화 - 로딩 완료 후 지연 시작
+    const timer = setTimeout(() => {
+      // Lenis 인스턴스 생성
+      lenisRef.current = new Lenis({
+        duration: 1.2,          // 스크롤 지속 시간
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // 부드러운 easing
+        smooth: true,           // 부드러운 스크롤 활성화
+        smoothTouch: false,     // 터치에서는 부드러운 스크롤 비활성화
+        touchMultiplier: 2,     // 터치 감도
+      });
+
+      // 스크롤 이벤트 처리
+      function raf(time: number) {
+        lenisRef.current?.raf(time);
+        requestAnimationFrame(raf);
       }
-    };
-
-    // 초기 높이 설정
-    handleResize();
-
-    // 리사이즈 이벤트 리스너 추가
-    window.addEventListener("resize", handleResize);
+      requestAnimationFrame(raf);
+    }, 1000); // 1초 지연으로 로딩 완료 보장
 
     // cleanup
     return () => {
-      window.removeEventListener("resize", handleResize);
+      clearTimeout(timer);
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+      }
     };
-  }, [contentRef]);
-
-  // Vercel 안전 초기화
-  useEffect(() => {
-    // 페이지 로드 완료 후 SmoothScroll 활성화
-    const timer = setTimeout(() => {
-      setIsReady(true);
-    }, 500); // 0.5초 지연으로 초기 스크롤 문제 방지
-
-    return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <>
-      {/* 스크롤바를 위한 보이지 않는 spacer */}
-      <div style={{ height: contentHeight }} />
-      
-      {/* 실제 컨텐츠 컨테이너 */}
-      <motion.div
-        className="scrollBody"
-        style={{ y }}
-        ref={contentRef}
-      >
-        {children}
-      </motion.div>
-    </>
-  );
+  return <div>{children}</div>;
 }
