@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import '../styles/Main.css';
@@ -453,6 +453,11 @@ export default function Main() {
     }, 5000);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  // Main 컴포넌트 마운트 시 스크롤을 맨 위로
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   // Intersection Observer for scroll animations

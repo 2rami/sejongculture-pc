@@ -47,6 +47,8 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({
             // 잔상 효과 후 완료
             setTimeout(() => {
               setLoadingComplete(true);
+              // 로딩 완료 시 즉시 스크롤을 맨 위로
+              window.scrollTo(0, 0);
               onComplete?.();
             }, 1500);
           }, 800);
