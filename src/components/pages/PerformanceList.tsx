@@ -150,15 +150,14 @@ export default function PerformanceList() {
     : performances.filter(performance => performance.genre === selectedGenre);
 
   return (
-    <>
+    <SmoothScroll>
       <Header />
-      <SmoothScroll>
       <div style={{
           background: '#ffffff',
           minHeight: '100vh',
           paddingTop: '6rem'
         }}>
-        <div style={{
+          <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
           padding: '0 2rem'
@@ -416,8 +415,8 @@ export default function PerformanceList() {
               ))}
             </div>
           </div>
+        </div>
       </div>
-      </SmoothScroll>
-    </>
+    </SmoothScroll>
   );
 }

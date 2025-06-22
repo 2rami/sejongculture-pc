@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header';
-// import SmoothScroll from '../SmoothScroll';
+import SmoothScroll from '../SmoothScroll';
 import imageSrc4 from '../../assets/images/image-4.jpeg';
 import imageSrc6 from '../../assets/images/image-6.jpeg';
 import imageSrc7 from '../../assets/images/image-7.jpeg';
@@ -59,7 +59,7 @@ export default function MyPage() {
   };
 
   return (
-    <>
+    <SmoothScroll>
       <Header />
       <div style={{
           background: '#ffffff',
@@ -527,7 +527,8 @@ export default function MyPage() {
               </Link>
             </div>
           </div>
+        </div>
       </div>
-    </>
+    </SmoothScroll>
   );
 }
