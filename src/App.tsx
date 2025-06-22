@@ -21,8 +21,16 @@ import './App.css';
 function App() {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
-  // 앱 시작시 스크롤을 맨 위로 강제 이동
+  // 앱 시작시 스크롤을 맨 위로 강제 이동 (Vercel 대응)
   useLayoutEffect(() => {
+    // 브라우저 히스토리 복원 방지
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    
+    // 강제 스크롤 초기화
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     window.scrollTo(0, 0);
   }, []);
 
@@ -32,10 +40,17 @@ function App() {
       setIsInitialLoading(false);
     }
     
-    // 앱 로드 완료 후에도 스크롤 보장
-    setTimeout(() => {
+    // Vercel 환경에서도 작동하도록 여러 시점에서 스크롤 보장
+    const scrollToTop = () => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
       window.scrollTo(0, 0);
-    }, 100);
+    };
+    
+    scrollToTop();
+    setTimeout(scrollToTop, 0);
+    setTimeout(scrollToTop, 100);
+    setTimeout(scrollToTop, 300);
   }, []);
 
   const handleLoadingComplete = () => {

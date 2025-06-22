@@ -455,9 +455,19 @@ export default function Main() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Main 컴포넌트 마운트 시 스크롤을 맨 위로
+  // Main 컴포넌트 마운트 시 스크롤을 맨 위로 (Vercel 대응)
   useLayoutEffect(() => {
+    // 강제 스크롤 초기화
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     window.scrollTo(0, 0);
+    
+    // 추가 보장을 위한 지연 실행
+    setTimeout(() => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }, 0);
   }, []);
 
   // Intersection Observer for scroll animations
