@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Header from '../Header';
+import SmoothScroll from '../SmoothScroll';
 // 공연 이미지 import
 import imageSrc4 from '../../assets/images/image-4.jpeg';
 import imageSrc6 from '../../assets/images/image-6.jpeg';
@@ -151,11 +152,12 @@ export default function PerformanceList() {
   return (
     <>
       <Header />
+      <SmoothScroll>
       <div style={{
-        background: '#ffffff',
-        minHeight: '100vh',
-        paddingTop: '6rem'
-      }}>
+          background: '#ffffff',
+          minHeight: '100vh',
+          paddingTop: '6rem'
+        }}>
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
@@ -414,8 +416,8 @@ export default function PerformanceList() {
               ))}
             </div>
           </div>
-        </div>
       </div>
+      </SmoothScroll>
     </>
   );
 }

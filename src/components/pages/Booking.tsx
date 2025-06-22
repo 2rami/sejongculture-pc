@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Header from '../Header';
+import SmoothScroll from '../SmoothScroll';
 import '../../styles/ModernBooking.css';
 
 
@@ -592,7 +593,8 @@ export default function Booking() {
   return (
     <>
       <Header />
-      <div className="modern-booking-page">
+      <SmoothScroll>
+        <div className="modern-booking-page">
         {/* 히어로 섹션 - 공연 정보 */}
         <motion.section 
           className="hero-section" 
@@ -1106,7 +1108,8 @@ export default function Booking() {
           </section>
         )}
 
-      </div>
+        </div>
+      </SmoothScroll>
     </>
   );
 }

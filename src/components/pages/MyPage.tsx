@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header';
+// import SmoothScroll from '../SmoothScroll';
 import imageSrc4 from '../../assets/images/image-4.jpeg';
 import imageSrc6 from '../../assets/images/image-6.jpeg';
 import imageSrc7 from '../../assets/images/image-7.jpeg';
@@ -61,11 +62,11 @@ export default function MyPage() {
     <>
       <Header />
       <div style={{
-        background: '#ffffff',
-        minHeight: '100vh',
-        paddingTop: '6rem'
-      }}>
-        <div style={{
+          background: '#ffffff',
+          minHeight: '100vh',
+          paddingTop: '6rem'
+        }}>
+          <div style={{
           maxWidth: '1200px',
           margin: '0 auto',
           padding: '0 2rem'
@@ -526,7 +527,6 @@ export default function MyPage() {
               </Link>
             </div>
           </div>
-        </div>
       </div>
     </>
   );
