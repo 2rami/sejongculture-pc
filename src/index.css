@@ -3,10 +3,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  scroll-behavior: auto;
-  overflow-x: hidden;
-  position: relative;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -14,17 +10,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  scroll-top: 0 !important;
-}
-
-body {
-  scroll-top: 0 !important;
-}
-
 #root {
-  scroll-behavior: auto;
-  position: relative;
   min-height: 100vh;
 }
 

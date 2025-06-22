@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './components/Main';
 import PerformanceList from './components/pages/PerformanceList';
@@ -21,16 +21,30 @@ import './App.css';
 function App() {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
+  // 앱 시작시 스크롤을 맨 위로 강제 이동
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const hasVisited = sessionStorage.getItem('hasVisited');
     if (hasVisited) {
       setIsInitialLoading(false);
     }
+    
+    // 앱 로드 완료 후에도 스크롤 보장
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   }, []);
 
   const handleLoadingComplete = () => {
     setIsInitialLoading(false);
     sessionStorage.setItem('hasVisited', 'true');
+    // 로딩 완료 후 스크롤 보장
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   };
 
   if (isInitialLoading) {
